@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="LdMdbT7dnIAKjfdC2IFvOgW8Kd1tIwuuHHLT2RqQg4k">
+  <meta name="baidu-site-verification" content="<meta name="baidu-site-verification" content="code-aZzP8ZWOEt" />">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.stillwtm.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Effective C++读书笔记（上）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective C++读书笔记（上）">
+<meta property="og:url" content="https://www.stillwtm.site/posts/8750bc6.html">
+<meta property="og:site_name" content="Stillwtm&#39;s Blog">
+<meta property="og:description" content="Effective C++读书笔记（上）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-23T09:33:08.000Z">
+<meta property="article:modified_time" content="2022-03-23T11:10:48.906Z">
+<meta property="article:author" content="Stillwtm">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.stillwtm.site/posts/8750bc6.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Effective C++读书笔记（上） | Stillwtm's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Stillwtm's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.stillwtm.site/posts/8750bc6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Stillwtm">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stillwtm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Effective C++读书笔记（上）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-23 17:33:08 / 修改时间：19:10:48" itemprop="dateCreated datePublished" datetime="2022-03-23T17:33:08+08:00">2022-03-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/8750bc6.html" class="post-meta-item leancloud_visitors" data-flag-title="Effective C++读书笔记（上）" title="阅读数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">评论数：</span>
+    
+    <a title="valine" href="/posts/8750bc6.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/8750bc6.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">Effective C++读书笔记（上）</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文是笔者阅读Effective C++第三版时的读书笔记，主要内容包括：</p>
+<ul>
+<li>对书上内容的概括提取</li>
+<li>笔者自己不清楚的小知识点的提取</li>
+<li>对书中每个条款的后的“请记住”部分的（基本上是）原文摘录</li>
+</ul>
+<blockquote>
+<p>这种灰色部分一般是笔者自己的一些注释</p>
+</blockquote>
+<p>原书一共九章，本文（上篇）记录第一至三章的笔记</p>
+</blockquote>
+<h4 id="1-让自己习惯C"><a href="#1-让自己习惯C" class="headerlink" title="1. 让自己习惯C++"></a>1. 让自己习惯C++</h4><h5 id="条款01：视C-为一个语言联邦"><a href="#条款01：视C-为一个语言联邦" class="headerlink" title="条款01：视C++为一个语言联邦"></a>条款01：视C++为一个语言联邦</h5><ul>
+<li>将C++视为四种sublanguage，即：<ul>
+<li><strong>C</strong>（没有模板、异常、重载）</li>
+<li><strong>Object-Oriented C++</strong>（面向对象、多态性）</li>
+<li><strong>Template C++</strong> （泛型编程）<ul>
+<li>由此衍生出模板元编程（template metaprogramming, TMP）</li>
+</ul>
+</li>
+<li><strong>STL</strong> （容器、迭代器、算法、函数对象）</li>
+</ul>
+</li>
+<li>在sublanguage间切换时，高效的编程守则也会改变，例如：<ul>
+<li>对内置(C-like)类型，值传递比引用传递更加高效！</li>
+<li>迭代器和函数对象由C指针塑造，所以对它们也应该采用值传递</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>C++高效编程守则取决于你使用C++的哪一部分</em></strong></p>
+<hr>
+<h5 id="条款02：尽量以const，enum，inline替换-define"><a href="#条款02：尽量以const，enum，inline替换-define" class="headerlink" title="条款02：尽量以const，enum，inline替换 #define"></a>条款02：尽量以const，enum，inline替换 #define</h5><ul>
+<li>宏的定义也许不会被编译器看见（预处理器处理），进而导致报错时不会带有宏的记号信息，导致难以调试；而常量则可以避免此种问题</li>
+<li>使用常量可能导致较小量的码(object code)；而宏可能会导致多份盲目替换，导致目标码大一些</li>
+<li><p>往往<code>const string</code>比<code>const char* const</code>要好一些</p>
+<blockquote>
+<p>这里还不知道是为啥</p>
+</blockquote>
+</li>
+<li><p><code>#define</code>一般不能提供封装性，常量则不然</p>
+</li>
+<li>in-class初值设定只能对整型常量进行</li>
+<li><p>关于enum hack：</p>
+<ul>
+<li>取<code>enum</code>的地址不合法，但是取<code>const</code>的地址是合法的<em>（有时这是一种约束）</em></li>
+<li><p><code>enum</code>绝不会导致内存分配，而某些不优秀的编译器也许会给<code>const</code>分配空间</p>
+<blockquote>
+<p>综上来说，enum的行为某方面更像#define</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>使用template inline函数替代宏</p>
+</li>
+</ul>
+<hr>
+<p><strong><em>对于单纯常量，最好以 const对象或 enum替换 #define</em></strong></p>
+<p><strong><em>对于形似函数的宏，用 inline函数替换 #define</em></strong></p>
+<hr>
+<h5 id="条款03：尽可能使用const"><a href="#条款03：尽可能使用const" class="headerlink" title="条款03：尽可能使用const"></a>条款03：尽可能使用const</h5><ul>
+<li>迭代器就像一个<code>T*</code>指针<ul>
+<li><code>const iterator iter</code>类似<code>T* const t</code></li>
+<li><code>const_iterator</code>类似<code>const T*</code> <em>（用于只读访问）</em></li>
+</ul>
+</li>
+<li>函数返回值是const可以预防一些奇怪的错误（书P19上方）</li>
+<li>两个成员函数只有常量性不同可以被重载</li>
+<li>关于bitwise constness和logical constness（见书P21， <em>派别之争并不是重点，重点后者的思想是保证客户端侦测不出变化，与编译器只认bitwise之间的矛盾，从而导出下一条</em>）</li>
+<li>在声明变量前加上前缀<code>mutable</code>，const成员函数就可以更改这些变量</li>
+<li><p>在const和non-const之间避免重复：</p>
+<ul>
+<li>只应该让non-const函数调用const函数（反之则可能导致成员变量改动，使const函数失去const特性）</li>
+<li><p>具体写法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>&amp; <span class="keyword">operator</span>[](std::<span class="type">size_t</span> pos) <span class="type">const</span> &#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">return</span> str[pos];</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">char</span>&amp; <span class="keyword">operator</span>[](std::<span class="type">size_t</span> pos) &#123;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">	  <span class="built_in">const_cast</span>&lt;<span class="type">char</span>&amp;&gt;(  <span class="comment">// 转除op[]返回的const</span></span><br><span class="line">		<span class="built_in">static_cast</span>&lt;<span class="type">const</span> ClassName&amp;&gt;(*<span class="keyword">this</span>)[pos]  <span class="comment">// 把*this变const以调用const函数</span></span><br><span class="line">	  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意到，这里把*this转成了const ClassName&amp;，相当于进行了一个加const</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>将某些东西声明为 const可以帮助编译器侦测错误用法。const可被施加于任何作用域内的对象、函数参数、函数返回类型、成员函数本体</em></strong></p>
+<p><strong><em>编译器强制实施 bitwise constness，但你应该使用 “概念上的常量性”</em></strong></p>
+<p><strong><em>当 const和 non-const成员函数有等价实现时，令 non-const版本调用 const版本来避免代码重复</em></strong></p>
+<hr>
+<h5 id="条款04：确定对象使用前已先被初始化"><a href="#条款04：确定对象使用前已先被初始化" class="headerlink" title="条款04：确定对象使用前已先被初始化"></a>条款04：确定对象使用前已先被初始化</h5><ul>
+<li><p>确保每一个构造函数都将对象的每一个成员初始化</p>
+<ul>
+<li>分清初始化(initialization)和赋值(assignment)</li>
+<li>通常使用初始化列表，即直接调用拷贝构造，比先默认构造再赋值来得快</li>
+<li>const和reference变量必须使用初始化列表</li>
+</ul>
+<blockquote>
+<p>总而言之，总是在初值列中列出所有成员变量</p>
+</blockquote>
+<ul>
+<li>过多的重复下，可以将那些“赋值表现和初始化一样好”的成员变量移到某个private函数里供构造函数调用</li>
+</ul>
+</li>
+<li>class的成员变量以其声明次序被初始化，和初始化列表顺序无关</li>
+<li>对于不同编译单元之间的non-local static对象（位于namespace或global作用域）的初始化次序<strong>没有</strong>明确规定<ul>
+<li>合适的设计手法是，把non-local static对象变成函数里的static对象，然后让这个函数返回该对象的引用<ul>
+<li>函数内的local static对象会在“该函数调用期间”“首次遇上该对象之定义式”时被初始化</li>
+</ul>
+</li>
+<li>尽管如此，任何涉及non-const static对象涉及到多线程都会有不确定性，一般是在单线程启动阶段先把这样的reference-returning函数手动调用一遍</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>为内置型对象进行手工初始化，因为 C++不保证初始化它们</em></strong></p>
+<p><strong><em>构造函数最好使用初值列代替赋值操作；初值列排列次序应该和声明次序相同</em></strong></p>
+<p><strong><em>为了免除跨编译单元时初始化次序的问题，请用 local static对象替换 non-local static对象</em></strong></p>
+<hr>
+<h4 id="2-构造-析构-赋值运算"><a href="#2-构造-析构-赋值运算" class="headerlink" title="2. 构造/析构/赋值运算"></a>2. 构造/析构/赋值运算</h4><h5 id="条款05：了解C-默默编写并调用哪些函数"><a href="#条款05：了解C-默默编写并调用哪些函数" class="headerlink" title="条款05：了解C++默默编写并调用哪些函数"></a>条款05：了解C++默默编写并调用哪些函数</h5><ul>
+<li>编译器默认声明的拷贝构造、赋值、构造、析构函数都是public且inline的<ul>
+<li>只有这些默认的函数需要被调用，它们才会被创建</li>
+<li>编译器产出的析构函数默认non-virtual</li>
+</ul>
+</li>
+<li>有三种情况编译器会拒绝生成一个默认的copy assignment<ul>
+<li>类中含有reference成员</li>
+<li>类中含const成员</li>
+<li>基类的copy assignment声明为private</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>编译器可以暗自为 class创建 default构造函数、copy构造函数、copy assignment操作符，以及析构函数</em></strong></p>
+<hr>
+<h5 id="条款06：若不想使用编译器自动生成的函数，就该明确拒绝"><a href="#条款06：若不想使用编译器自动生成的函数，就该明确拒绝" class="headerlink" title="条款06：若不想使用编译器自动生成的函数，就该明确拒绝"></a>条款06：若不想使用编译器自动生成的函数，就该明确拒绝</h5><ul>
+<li>可以通过仅声明，不定义copy构造、copy assignment操作符，并且声明为private，来避免编译器的自动创建和不被希望的调用<ul>
+<li>进一步，如果不希望friend和member函数调用，可以实现一个基类，并将它的copy构造、copy assignment操作符声明为private，然后继承它（甚至未必要是public继承）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>为驳回编译器（暗自）提供的机能，可将相应的成员函数声明为 private并不予实现。或者采用 Uncopyable基类的做法。</em></strong></p>
+<hr>
+<h5 id="条款07：为多态基类声明virtual析构函数"><a href="#条款07：为多态基类声明virtual析构函数" class="headerlink" title="条款07：为多态基类声明virtual析构函数"></a>条款07：为多态基类声明virtual析构函数</h5><ul>
+<li>任何class只有带有virtual函数都几乎确定应该也有一个virtual析构函数</li>
+<li>如果不作为基类，不应使用virtual， 因为包含了vptr(virtual table pointer)，可能会导致：<ul>
+<li>对象的体积可能会增大50%~100%！</li>
+<li>不再和其他语言（如C）中的相同声明拥有一样的结构，从而不能传递至其他语言所写函数</li>
+</ul>
+</li>
+<li>string，以及所有STL容器，都不带virtual析构函数！（因而不适合被继承）</li>
+<li><p>如果希望有一个抽象类，可以将类的析构函数声明为纯虚，但是仍然需要提供定义！（否则连接器会报错）</p>
+<blockquote>
+<p>这里比较奇怪，基类的析构该怎么写还是要怎么写，比如该 delete还是要 delete</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong><em>带有多态性质的基类应该声明一个 virtual析构函数；如果类中有任何 virtual函数，它就应该有一个 virtual析构函数</em></strong></p>
+<p><strong><em>类的设计目的如果不是为了作为基类，或者是基类但不是为了具有多态性，就不应该声明 virtual析构函数</em></strong></p>
+<hr>
+<h5 id="条款08：别让异常逃离析构函数"><a href="#条款08：别让异常逃离析构函数" class="headerlink" title="条款08：别让异常逃离析构函数"></a>条款08：别让异常逃离析构函数</h5><ul>
+<li>析构函数不应该吐出异常，理由有二：<ul>
+<li>可能导致异常后面的资源释放不会执行</li>
+<li>异常可能会导致程序调用其他的析构函数来释放资源，这可能会造成新的异常（两个异常同时存在的情况下，程序若不是结束执行就是导致不明确行为）</li>
+</ul>
+</li>
+<li>解决这种问题的方法：<ul>
+<li>析构函数内有异常就<code>abort()</code>结束程序</li>
+<li>析构函数吞下异常（不一定是个好主意，但是可行！）</li>
+<li>重新设计一个普通函数接口来进行操作，从而给客户一个处理异常的空间，同时在析构函数里操作作为双保险</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>析构函数绝对不要吐出异常；析构函数应该捕捉任何异常，吞下它们或结束程序</em></strong></p>
+<p><strong><em>如果客户需要对某个操作函数运行期间抛出的异常做出反应，类中应该提供一个普通函数进行该操作</em></strong></p>
+<hr>
+<h5 id="条款09：绝不在构造和析构过程中调用virtual"><a href="#条款09：绝不在构造和析构过程中调用virtual" class="headerlink" title="条款09：绝不在构造和析构过程中调用virtual"></a>条款09：绝不在构造和析构过程中调用virtual</h5><ul>
+<li>原因是在基类构造期间运行期类型信息（dynamic_cast和typeid之类）把对象视为base class类型，虚函数也只会被解析至base class（<em>这样的好处是可以防止虚函数调用还没有初始化的派生类成员</em>）</li>
+<li>析构函数也同样</li>
+<li>如果想在构造对象时输出适当的对应版本的信息，可以通过给构造函数增加参数一直传给基类，并且在基类构造函数中使用non-virtual函数</li>
+</ul>
+<hr>
+<p><strong><em>在构造和析构期间不要调用 virtual函数，因为这类调用从不下降至当前执行层的 derived class</em></strong></p>
+<hr>
+<h5 id="条款10：令-operator-返回一个reference-to-this"><a href="#条款10：令-operator-返回一个reference-to-this" class="headerlink" title="条款10：令 operator= 返回一个reference to *this"></a>条款10：令 operator= 返回一个reference to *this</h5><ul>
+<li>为了实现连锁赋值，所以返回一个指向操作符左侧实参的引用（也包括+=之类的运算符）</li>
+</ul>
+<hr>
+<p><strong><em>令赋值操作符返回一个 reference to \</em>this*</strong></p>
+<hr>
+<h5 id="条款11：在-operator-中处理“自我赋值”"><a href="#条款11：在-operator-中处理“自我赋值”" class="headerlink" title="条款11：在 operator= 中处理“自我赋值”"></a>条款11：在 operator= 中处理“自我赋值”</h5><ul>
+<li><p>三种方法处理这种情况：</p>
+<ul>
+<li><p>“证同测试”：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span> == &amp;rhs) <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>保持异常安全性的同时处理了自我赋值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Bitmap* pOrig = pb;</span><br><span class="line">pb = <span class="keyword">new</span> <span class="built_in">Bitmap</span>(*rhs.pb);</span><br><span class="line"><span class="keyword">return</span> *<span class="keyword">this</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这段代码的好处是即使 new的时候出现异常，pb也会保持原状</p>
+</blockquote>
+</li>
+<li><p>使用所谓copy and swap技术</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Widget <span class="title">tmp</span><span class="params">(rhs)</span></span>;</span><br><span class="line"><span class="built_in">swap</span>(tmp);  <span class="comment">// 将*this和tmp的数据交换</span></span><br><span class="line"><span class="keyword">return</span> *<span class="keyword">this</span>;</span><br></pre></td></tr></table></figure>
+<p>而如果<code>rhs</code>是值传递的，还可以省略第一行</p>
+<blockquote>
+<p>将 copying动作从函数本体内移至 “函数参数 ”构造阶段有时可令编译器生成更高效的代码（也许指用值传递 rhs）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>确保当对象自我赋值时 operator=有良好行为；其中技术包括比较地址，安排语句顺序，以及 copy-and-swap</em></strong></p>
+<p><strong><em>确定任何函数如果操作一个以上的对象，而其中多个对象是同一个对象时，其行为仍然正确</em></strong></p>
+<hr>
+<h5 id="条款12：复制对象时勿忘其每一个成分"><a href="#条款12：复制对象时勿忘其每一个成分" class="headerlink" title="条款12：复制对象时勿忘其每一个成分"></a>条款12：复制对象时勿忘其每一个成分</h5><ul>
+<li>对于基类部分的复制，往往在派生类的复制函数中手动调用基类的复制函数，如<code>BaseClass::operator=(rhs)</code></li>
+<li>故编写copying函数时应该：<ul>
+<li>复制所有local成员变量</li>
+<li>调用所有基类的适当copying函数</li>
+</ul>
+</li>
+<li>让copy构造函数和copy assignment操作符之间互相调用是不合理的（如果要代码复用，应该建立一个新的函数给两者调用）</li>
+</ul>
+<hr>
+<p><strong><em>Copying函数应该确保复制 “对象内的所有成员变量 ”及 “所有 base class成分 ”</em></strong></p>
+<p><strong><em>不要尝试以某个 copying函数实现另一个 copying函数；应该将共同机能放进第三个函数中供两者共同调用</em></strong></p>
+<hr>
+<h4 id="3-资源管理"><a href="#3-资源管理" class="headerlink" title="3. 资源管理"></a>3. 资源管理</h4><h5 id="条款13：以对象管理资源"><a href="#条款13：以对象管理资源" class="headerlink" title="条款13：以对象管理资源"></a>条款13：以对象管理资源</h5><ul>
+<li>以对象管理资源的一般想法：<ul>
+<li>获得资源后立刻放进管理对象</li>
+<li>管理对象运用析构函数确保资源被释放</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>为防止资源泄漏，请使用 RAII（Resource Acquisition Is Initialization，资源获取就是初始化）对象，它们在构造函数中获得资源，在析构函数中释放资源</em></strong></p>
+<p><strong><em>两个常被使用的 RAII classes是 <code>tr1::shared_ptr</code>和 <code>auto_ptr</code>，前者通常是较佳选择，因为其 copy行为比较直观，后者的复制动作会使它指向 null</em></strong></p>
+<hr>
+<h5 id="条款14：在资源管理类中小心copying行为"><a href="#条款14：在资源管理类中小心copying行为" class="headerlink" title="条款14：在资源管理类中小心copying行为"></a>条款14：在资源管理类中小心copying行为</h5><ul>
+<li>对于RAII对象的复制，一般有几种态度（前两种情况较多）：<ul>
+<li>禁止复制（手法见条款06）</li>
+<li>使用引用计数法<ul>
+<li>通常只要内含<code>tr1::shared_ptr</code>，便可以实现这种行为</li>
+<li><code>tr1::shared_ptr</code>允许指定一个“删除器”作为第二参数，即引用数归零时被调用的行为</li>
+</ul>
+</li>
+<li>复制底部资源，即进行深拷贝</li>
+<li>转移底部资源的拥有权，即<code>auto_ptr</code>的行为</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>复制 RAII对象必须一并复制它所管理的资源，所以资源的 copying行为决定 RAII对象的 copying行为</em></strong></p>
+<p><strong><em>普遍而常见的 RAII copying行为是：抑制 copying、施行引用计数法；不过也有其他可能</em></strong></p>
+<hr>
+<h5 id="条款15：在资源管理类提供对原始资源的访问"><a href="#条款15：在资源管理类提供对原始资源的访问" class="headerlink" title="条款15：在资源管理类提供对原始资源的访问"></a>条款15：在资源管理类提供对原始资源的访问</h5><ul>
+<li>将RAII class对象转换为其内含的原始资源：<ul>
+<li>显式转换<ul>
+<li>智能指针的<code>.get()</code>方法</li>
+<li>自行在类内提供一个<code>get()</code>方法返回资源</li>
+</ul>
+</li>
+<li>隐式转换<ul>
+<li>智能指针对<code>-&gt;</code>和<code>*</code>的重载</li>
+<li>在类内提供一个类型转换的函数（例如operator int()之类）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>APIs往往要求访问原始资源，所以每一个 RAII class应该提供一个 “取得其所管理之资源 ”的办法</em></strong></p>
+<p><strong><em>对原始资源的访问可能经由显式或隐式转换；一般而言显式比较安全，但隐式对客户比较方便</em></strong></p>
+<hr>
+<h5 id="条款16：成对使用new和delete时要采取相同形式"><a href="#条款16：成对使用new和delete时要采取相同形式" class="headerlink" title="条款16：成对使用new和delete时要采取相同形式"></a>条款16：成对使用new和delete时要采取相同形式</h5><ul>
+<li>在运用<code>typedef</code>的时候要小心t，要注意<code>new</code>这种类型的时候该用什么<code>delete</code>（所以一般不对数组形式做<code>typedef</code>，而是直接使用<code>vector</code>之类的）</li>
+</ul>
+<hr>
+<p><strong><em>如果你在 new表达式中使用 []，必须在相应的 delete表达式中也使用 [];反之亦然</em></strong></p>
+<hr>
+<h5 id="条款17：以独立语句将newed对象置入智能指针"><a href="#条款17：以独立语句将newed对象置入智能指针" class="headerlink" title="条款17：以独立语句将newed对象置入智能指针"></a>条款17：以独立语句将newed对象置入智能指针</h5><ul>
+<li>这样做是为了防止“资源被创建”和“资源被转换为资源管理对象之间”发生异常干扰（同语句内C++编译器对各项操作的调用顺序可能有一定的自由度，例如函数参数传递时调用的函数，详见书P76）</li>
+</ul>
+<hr>
+<p><strong><em>以独立语句将 newed对象置于智能指针内；如果不这样做，一旦异常被抛出，有可能导致难以察觉的资源泄漏</em></strong></p>
+<hr>
+<blockquote>
+<p>受笔者知识水平和表达能力所限，有些问题上难免出现疏漏，欢迎在评论区指正</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/bb4db3f1.html" rel="prev" title="wennitao爱炒股（一道单调队列题）">
+      <i class="fa fa-chevron-left"></i> wennitao爱炒股（一道单调队列题）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/bd5daa1e.html" rel="next" title="walotta的灾后重建规划（单调栈运用）">
+      walotta的灾后重建规划（单调栈运用） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AE%A9%E8%87%AA%E5%B7%B1%E4%B9%A0%E6%83%AFC"><span class="nav-number">1.</span> <span class="nav-text">1. 让自己习惯C++</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE01%EF%BC%9A%E8%A7%86C-%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AF%AD%E8%A8%80%E8%81%94%E9%82%A6"><span class="nav-number">1.1.</span> <span class="nav-text">条款01：视C++为一个语言联邦</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const%EF%BC%8Cenum%EF%BC%8Cinline%E6%9B%BF%E6%8D%A2-define"><span class="nav-number">1.2.</span> <span class="nav-text">条款02：尽量以const，enum，inline替换 #define</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8const"><span class="nav-number">1.3.</span> <span class="nav-text">条款03：尽可能使用const</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text">条款04：确定对象使用前已先被初始化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%9E%84%E9%80%A0-%E6%9E%90%E6%9E%84-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">2. 构造&#x2F;析构&#x2F;赋值运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3C-%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">条款05：了解C++默默编写并调用哪些函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D"><span class="nav-number">2.2.</span> <span class="nav-text">条款06：若不想使用编译器自动生成的函数，就该明确拒绝</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8Evirtual%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">条款07：为多态基类声明virtual析构函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE08%EF%BC%9A%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">2.4.</span> <span class="nav-text">条款08：别让异常逃离析构函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8virtual"><span class="nav-number">2.5.</span> <span class="nav-text">条款09：绝不在构造和析构过程中调用virtual</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4-operator-%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AAreference-to-this"><span class="nav-number">2.6.</span> <span class="nav-text">条款10：令 operator&#x3D; 返回一个reference to *this</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8-operator-%E4%B8%AD%E5%A4%84%E7%90%86%E2%80%9C%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E2%80%9D"><span class="nav-number">2.7.</span> <span class="nav-text">条款11：在 operator&#x3D; 中处理“自我赋值”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86"><span class="nav-number">2.8.</span> <span class="nav-text">条款12：复制对象时勿忘其每一个成分</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">3. 资源管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90"><span class="nav-number">3.1.</span> <span class="nav-text">条款13：以对象管理资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83copying%E8%A1%8C%E4%B8%BA"><span class="nav-number">3.2.</span> <span class="nav-text">条款14：在资源管理类中小心copying行为</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="nav-number">3.3.</span> <span class="nav-text">条款15：在资源管理类提供对原始资源的访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E5%BD%A2%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">条款16：成对使用new和delete时要采取相同形式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86newed%E5%AF%B9%E8%B1%A1%E7%BD%AE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">3.5.</span> <span class="nav-text">条款17：以独立语句将newed对象置入智能指针</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Stillwtm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stillwtm</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/gh/Stillwtm/Blog_cdn/js/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'jERTy9wlNPVGpmbUSmeXMDMu-gzGzoHsz',
+      appKey     : 'c2bh6kdRoUO5RjWNHGVj6EgX',
+      placeholder: "邮箱处填入qq邮箱可以自动显示qq头像和昵称哦! &#13;&#10; 也支持Gravater头像！&#13;&#10; 评论支持Markdown! &#13;&#10; 欢迎评论! \\^o^/",
+      avatar     : 'mp',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://jerty9wl.lc-cn-n1-shared.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="LdMdbT7dnIAKjfdC2IFvOgW8Kd1tIwuuHHLT2RqQg4k">
+  <meta name="baidu-site-verification" content="<meta name="baidu-site-verification" content="code-aZzP8ZWOEt" />">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.stillwtm.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="主要针对约瑟夫问题，以及一道变种题“春樱对决”的数学推导过程的解题笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="约瑟夫问题及其一种变式">
+<meta property="og:url" content="https://www.stillwtm.site/posts/3b6d7b83.html">
+<meta property="og:site_name" content="Stillwtm&#39;s Blog">
+<meta property="og:description" content="主要针对约瑟夫问题，以及一道变种题“春樱对决”的数学推导过程的解题笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/7S4b1Aq8cy9VPlR.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/4ISPBCFOUiTJnf9.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/fBGzXjcPHFSvMIy.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/GdKlgoE4N8LIxTO.png">
+<meta property="article:published_time" content="2022-03-07T11:16:56.000Z">
+<meta property="article:modified_time" content="2022-03-16T08:50:11.887Z">
+<meta property="article:author" content="Stillwtm">
+<meta property="article:tag" content="解题">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/08/7S4b1Aq8cy9VPlR.png">
+
+<link rel="canonical" href="https://www.stillwtm.site/posts/3b6d7b83.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>约瑟夫问题及其一种变式 | Stillwtm's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Stillwtm's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.stillwtm.site/posts/3b6d7b83.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Stillwtm">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stillwtm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          约瑟夫问题及其一种变式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-07 19:16:56" itemprop="dateCreated datePublished" datetime="2022-03-07T19:16:56+08:00">2022-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-16 16:50:11" itemprop="dateModified" datetime="2022-03-16T16:50:11+08:00">2022-03-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%A3%E9%A2%98%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">解题笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/3b6d7b83.html" class="post-meta-item leancloud_visitors" data-flag-title="约瑟夫问题及其一种变式" title="阅读数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">评论数：</span>
+    
+    <a title="valine" href="/posts/3b6d7b83.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/3b6d7b83.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">主要针对约瑟夫问题，以及一道变种题“春樱对决”的数学推导过程的解题笔记</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>众所周知，约瑟夫环问题可以模拟解决，但本文不打算细讲模拟的方法，只会为了文章完整性起见提一下思路。本文的重点是介绍数学推导过程以及利用树状数组的解法，或者说主要是为了解决下面的变式问题，只是原版约瑟夫的推导过程确有帮助，故一并介绍</p>
+</blockquote>
+<h3 id="约瑟夫问题"><a href="#约瑟夫问题" class="headerlink" title="约瑟夫问题"></a>约瑟夫问题</h3><blockquote>
+<p>0,1,···,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字（删除后从下一个数字开始计数）。求出这个圆圈里剩下的最后一个数字。</p>
+<p>例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。</p>
+<p>原题参见<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/">LeetCode</a></p>
+</blockquote>
+<h4 id="原始思路"><a href="#原始思路" class="headerlink" title="原始思路"></a>原始思路</h4><p>以上是约瑟夫环问题一种比较经典的描述，思考一下即可以想见两种解法：</p>
+<ul>
+<li>最容易想到的自然是<strong>循环链表</strong>直接模拟，删除掉数字即删除链表节点，时间复杂度为$O(mn)$</li>
+<li>稍稍优化一下思路，用<strong>求余</strong>的方法，可以直接确定下一个该删除的位置，防止m过大导致空转很多圈的情况，但是时间复杂度仍然为$O(n^2)$</li>
+</ul>
+<p>不过既然已经求余，那么不妨思考一下，能否再进一步，直接用数学方法解决这个问题呢？</p>
+<h4 id="数学推导"><a href="#数学推导" class="headerlink" title="数学推导"></a>数学推导</h4><p>约瑟夫问题每次删除一个人，也即问题的规模每次减小一，这提示我们使用递归的思路去解决这个问题。</p>
+<p>然而问题在于，一个规模为$n$的约瑟夫问题中是对$0$~$n-1$进行操作，但是当我们删除一个数字之后，剩余的数字未必是$0$~$n-2$，也就是说，我们要解决的主要是问题规模变小之后的数字编号对应问题。我们需要在规模为$n-1$问题的数字，和规模为$n$的问题的剩余数字之间建立一个<strong>一一映射</strong>，从而将$n-1$问题的答案转化到$n$问题去。</p>
+<p>以上是问题的核心思路，下面介绍详细的推导过程。</p>
+<p>不妨假设我们在$0$~$n-1$中第一个删除的数字为$k$，那么为了进行对应，我们先对$0$~$n-1$​进行重排，如下图所示</p>
+<p><img src="https://s2.loli.net/2022/03/08/7S4b1Aq8cy9VPlR.png" style="zoom:80%;" /></p>
+<p>这相当于把已经删除的数字$k$丢到最后去，不用考虑它，然后按照正常的操作顺序，我们下面应该对$k+1$~$k-1$进行操作。这即是一个规模为$n-1$的问题。我们建立一一映射关系如下图所示</p>
+<p><img src="https://s2.loli.net/2022/03/08/4ISPBCFOUiTJnf9.png" style="zoom:80%;" /></p>
+<p>该映射关系作为数学公式的表达如下：</p>
+<p>假设$x_n$是上面的数字，$x_{n-1}$是下面的数字，那么有$x_n=(x_{n-1}+(k+1))\ mod\ n$。根据上图，容易验证公式是成立的。</p>
+<p>这时候设想一下，如果有了$n-1$规模下的约瑟夫问题的答案$ans_{n-1}$，利用上面的映射关系，不就可以把$ans_{n-1}$映射过去，得到$ans_n$了吗！由于$k$是规模为$n$的问题中第一个删除的数，所以显然应该有$k=(m-1)\ mod\ n$。综合起来整理一下，得到最终的公式：</p>
+<script type="math/tex; mode=display">
+ans_n=(ans_{n-1}+m\ mod\ n)\ mod\ n=(ans_{n-1}+m)\ mod\ n</script><p>最后考虑一下边界条件，即$n=1$时，显然答案是数字$0$。</p>
+<p>至此，我们已经完成了约瑟夫问题的数学公式推导。下面看一下代码实现（<del>代码这么短有啥好看的</del>）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 递归求解的函数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">solve</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> m)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 边界条件</span></span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">return</span> (<span class="built_in">solve</span>(n - <span class="number">1</span>, m) + m) % n;  <span class="comment">// 公式 </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lastRemaining</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> m)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">solve</span>(n, m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>也可以直接采用递推的写法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lastRemaining</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> m)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;  <span class="comment">// i即约瑟夫问题的规模</span></span><br><span class="line">            ans = (ans + m) % i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>有一点值得注意，无论是递推还是递归求解约瑟夫问题，迭代的数字并不代表删除数字的顺序，而是代表着某个规模的约瑟夫问题的答案（比如<code>i=n-2</code>时，求出来的答案并不是倒数第二个被删除的数，而是代表规模为n-2的约瑟夫问题的答案）</p>
+<p>如果是一些变种约瑟夫（比如让你求倒数三个被删除的数字），就要注意分清这种概念</p>
+</blockquote>
+<h4 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h4><p>关于树状数组的写法，放在下面的变种约瑟夫里一起介绍。</p>
+<h3 id="线型变向约瑟夫"><a href="#线型变向约瑟夫" class="headerlink" title="线型变向约瑟夫"></a>线型变向约瑟夫</h3><blockquote>
+<p>在这万物复苏的春天，“春樱对决”比赛开始啦！晴明有N个式神，他想从这N个式神里选一个来当这次活动海报的主角。因为想当主角的式神非常多，于是晴明就定下了这样一个选拔的规矩：</p>
+<p>将N个式神从左到右排成一排，编号为1~N。从第1个式神开始进行1~M的正向报数，报到的第M个式神出列，再从下一个式神开始继续1到M报数、出列。如果按照某个方向报数到尾部，那么再反方向继续报数。如此进行下去，直到剩下一个式神，而这个式神就是本次“春樱对决”海报的主角。</p>
+<p>第一个来到这个寮的两面佛渴望能成为主角，毕竟这是他唯一可能成为主角的时刻了。于是佛佛求你编个程序帮助他实现这个愿望，告诉他要想当主角，他的编号应该是多少。</p>
+<p>数据范围：N≤10<sup>5</sup>，M≤10<sup>9</sup></p>
+<p>(<a target="_blank" rel="noopener" href="https://acm.sjtu.edu.cn/OnlineJudge/problem?problem_id=1088">ACMOJ · 春樱对决 (sjtu.edu.cn)</a>)（没有SJTUOJ账号可能看不见呢）</p>
+</blockquote>
+<h4 id="原始思路-1"><a href="#原始思路-1" class="headerlink" title="原始思路"></a>原始思路</h4><p>提前声明一下，这个“线型变向约瑟夫”的名字是我乱起的，<del>毕竟本来这个题目背景（阴阳师？）就很奇怪</del>。不过题目大意很清楚了，就是把约瑟夫问题的循环，变成了在一条链上两个方向来回跑。由此，我们仍然可以想到一些朴素解法：</p>
+<ul>
+<li>用<strong>双链表</strong>直接模拟，时间复杂度$O(mn)$</li>
+<li>用<strong>循环链表</strong>，把除了头尾元素的部分复制一份接到尾的后面，再首尾相接构造循环链表，这样便可以转化成我们熟悉的问题，采用<strong>取余</strong>的方法，将时间复杂度降低到$O(n^2)$</li>
+</ul>
+<p>不过朴素方法仍然不是我们的重点，下面介绍数学方法。</p>
+<h4 id="数学推导-1"><a href="#数学推导-1" class="headerlink" title="数学推导"></a>数学推导</h4><p>我们延续原版约瑟夫的思路，希望能够通过减小问题规模进行递归。</p>
+<p>但是这次还有报数方向问题，应该是不能通过很直接的数学公式一行解决了。我们不妨把<strong>方向</strong>当做每一轮的已知量，加入递归函数传递的变量中，记为$dir$。另外，由于从循环链表变成线性链，每个位置的地位也不再等同，于是我们也传递每轮开始报数的<strong>位置</strong>，设为$st$。另外，为了求解的方便，我们仍然使用$0$~$n-1$而非原问题中的$1$~$n$。下面开始求解。</p>
+<p>记剩余人数为$n$（即前文所述问题规模为$n$）时初始位置为$st_n$，初始方向为$dir_n$（为了叙述的方便，下面将剩余人数为$n$的问题简记为问题$n$）。</p>
+<p>我们首先要确定剩余人数为$n-1$时的报数方向$dir_{n-1}$。方向的改变和什么有关呢？自然是和我们跑过了几个转折点（即头尾节点）有关（经过奇数次就转向，偶数次就不转向）。为了方便，我们可以先将$0$~$n-1$进行复制变成一个无限长链便于想象，如下图所示</p>
+<p><img src="https://s2.loli.net/2022/03/08/fBGzXjcPHFSvMIy.png" style="zoom:80%;" /></p>
+<p>我们已经将正常的折返等价成了上图的长链，也就是说在上图的链中按一个方向（不妨向右）跑就相当于原题的折返跑。只要落在图中蓝色的部分，原始方向都应该是向右；反之，落在红色部分原始方向就应该向左。</p>
+<p>以初始方向向右为例，为了统计的方便，我们不妨将初始位置暂且看作从头（即数字0处）出发，那么跑过的路程就是$s=st_n+(m-1)$，然后我们判断$[\frac{s}{n-1}]=[\frac{st_n+m-1}{n-1}]$（这里[]是高斯函数）的奇偶性，即可知道跑完之后落在红色还是蓝色区域，从而知道方向。</p>
+<p>初始方向向左也类似（这时初始$st$应该落在红区），只不过路程$s=(n-1-st_n)+(m-1)$（这里暂且看作出发位置是$n-1$）。</p>
+<p>综合一下，有</p>
+<script type="math/tex; mode=display">
+s=\left\{\begin{matrix}st_n+m-1，dir_n=Right\\n-st_n+m-2，dir_n=Left \end{matrix}\right.</script><script type="math/tex; mode=display">
+dir_{n-1}=\left\{\begin{matrix}dir_n的反向，[\frac{s}{n-1}]为奇数\\dir_n，[\frac{s}{n-1}]为偶数\end{matrix}\right.</script><p>有了上面的铺垫，我们接下来求解$st_{n-1}$就比较简单了。</p>
+<p>我们先求出从$st_n$出发，移动$m$个之后到达的位置，并记为$k$。仍然看上面的图，如果落在蓝区，那么显然有$k=s\ mod\ (n-1)$；如果落在红区，就是$k=n-1-(s\ mod\ (n-1))$。综合一下，就有</p>
+<script type="math/tex; mode=display">
+k=\left\{\begin{matrix}s\ mod\ (n-1)，dir_{n-1}=Right\\n-1-(s\ mod\ (n-1))，dir_{n-1}=Left \end{matrix}\right.</script><p>仅仅知道$k$还不够，因为$k$只是问题$n$下的数字编号，而非问题$n-1$下的，所以我们还缺一步。记得吗？原版的约瑟夫中还有一个建立一一映射的过程。当然，由于是单链而非环状，我们不可能再进行重排，但是需要删除的数，即$k$，仍然要舍弃掉，并将剩下的数建立映射关系，如下图所示</p>
+<p><img src="https://s2.loli.net/2022/03/08/GdKlgoE4N8LIxTO.png" style="zoom:80%;" /></p>
+<p>假设$x_n$是上面的数字，$x_{n-1}$是下面的数字，那么用数学关系表达就是$x_n=\left\{\begin{matrix} x_{n-1}，x_{n-1}\leq k-1\\ x_{n-1}+1，x_{n-1}\geq k \end{matrix}\right.$</p>
+<p>由此，我们便可以通过$k$得到$st_{n-1}$了。如果$dir_{n-1}=Right$，删除数字$k$之后，下一个开始位置是问题$n$中的$k+1$，代入公式得到对应的问题$n-1$中的数字编号为$k$。同理，如果$dir_{n-1}=Left$，删除数字$k$之后，下一个开始位置是问题$n$中的$k-1$，代入公式得到对应的问题$n-1$中的数字编号为$k-1$。</p>
+<blockquote>
+<p>这里不用担心k+1或k-1后会超出0~n的范围，因为头尾位置的方向都是向内的</p>
+</blockquote>
+<p>将这些过程综合一下，就有</p>
+<script type="math/tex; mode=display">
+st_{n-1}=\left\{\begin{matrix}k，dir_{n-1}=Right\\k-1，dir_{n-1}=Left \end{matrix}\right.</script><p>到这里，我们已经根据$st_n$和$dir_n$求出了$st_{n-1}$和$dir_{n-1}$，即成功地缩小了问题的规模。只要将问题$n-1$的答案映射到问题$n$的数字编号即可，映射公式已经推导过</p>
+<script type="math/tex; mode=display">
+ans_n=\left\{\begin{matrix} ans_{n-1}，ans_{n-1}\leq k-1\\ ans_{n-1}+1，ans_{n-1}\geq k \end{matrix}\right.</script><p>最后加上同样的边界条件，即$n=1$时，显然答案是数字$0$。</p>
+<p>至此，我们完成了这个问题的数学推导。</p>
+<p>下面贴出代码（<del>这代码真没啥好看的，写完我自己都看不懂</del>）：</p>
+<blockquote>
+<p>代码仅供参考，<strong>请不要盲目抄袭代码来完成作业！！！</strong></p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// dir=0代表右，dir=1代表左，st是开始报数的人</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">solve</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> m, <span class="type">int</span> st, <span class="type">int</span> dir)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> k = dir ? (n - <span class="number">1</span> - st + m - <span class="number">1</span>) : (st + m - <span class="number">1</span>);  <span class="comment">// 这里的k是推导过程表述的路程s </span></span><br><span class="line">    <span class="type">int</span> ndir = ((k / (n - <span class="number">1</span>)) &amp; <span class="number">1</span>) ? (dir ^ <span class="number">1</span>) : dir;  <span class="comment">// s / (n-1) 是奇数就反向</span></span><br><span class="line">    k = (ndir ? (n - <span class="number">1</span> - k % (n - <span class="number">1</span>)) : k % (n - <span class="number">1</span>));  <span class="comment">// 这里的k即推导过程的k</span></span><br><span class="line">    <span class="type">int</span> nst = ndir ? k - <span class="number">1</span> : k;  <span class="comment">// 求出st_n-1</span></span><br><span class="line">    <span class="type">int</span> ret = <span class="built_in">solve</span>(n - <span class="number">1</span>, m, nst, ndir);  <span class="comment">// n-1问题的答案</span></span><br><span class="line">    <span class="keyword">return</span> (ret &gt;= k) ? ret + <span class="number">1</span> : ret;  <span class="comment">// 进行映射</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, <span class="built_in">solve</span>(n, m, <span class="number">0</span>, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="树状数组-1"><a href="#树状数组-1" class="headerlink" title="树状数组"></a>树状数组</h4><p>有时间补上`(*&gt;﹏&lt;*)′</p>
+<blockquote>
+<p>受笔者知识水平和表达能力所限，有的问题难免解释得或啰嗦或不清楚，欢迎在评论区指正</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%A3%E9%A2%98/" rel="tag"># 解题</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/posts/bb4db3f1.html" rel="next" title="wennitao爱炒股（一道单调队列题）">
+      wennitao爱炒股（一道单调队列题） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">约瑟夫问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">原始思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="nav-number">1.2.</span> <span class="nav-text">数学推导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84"><span class="nav-number">1.3.</span> <span class="nav-text">树状数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E5%9E%8B%E5%8F%98%E5%90%91%E7%BA%A6%E7%91%9F%E5%A4%AB"><span class="nav-number">2.</span> <span class="nav-text">线型变向约瑟夫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E6%80%9D%E8%B7%AF-1"><span class="nav-number">2.1.</span> <span class="nav-text">原始思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC-1"><span class="nav-number">2.2.</span> <span class="nav-text">数学推导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84-1"><span class="nav-number">2.3.</span> <span class="nav-text">树状数组</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Stillwtm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stillwtm</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/gh/Stillwtm/Blog_cdn/js/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'jERTy9wlNPVGpmbUSmeXMDMu-gzGzoHsz',
+      appKey     : 'c2bh6kdRoUO5RjWNHGVj6EgX',
+      placeholder: "邮箱处填入qq邮箱可以自动显示qq头像和昵称哦! &#13;&#10; 也支持Gravater头像！&#13;&#10; 评论支持Markdown! &#13;&#10; 欢迎评论! \\^o^/",
+      avatar     : 'mp',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://jerty9wl.lc-cn-n1-shared.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
