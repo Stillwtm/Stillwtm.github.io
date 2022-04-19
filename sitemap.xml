@@ -74,14 +74,14 @@
 
   
   <url>
-    <loc>https://www.stillwtm.site/tags/%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://www.stillwtm.site/tags/CSAPP/</loc>
     <lastmod>2022-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.stillwtm.site/tags/C/</loc>
+    <loc>https://www.stillwtm.site/tags/%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -102,14 +102,7 @@
   </url>
   
   <url>
-    <loc>https://www.stillwtm.site/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/</loc>
-    <lastmod>2022-04-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.stillwtm.site/tags/CSAPP/</loc>
+    <loc>https://www.stillwtm.site/tags/C/</loc>
     <lastmod>2022-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -117,6 +110,13 @@
   
   <url>
     <loc>https://www.stillwtm.site/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2022-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.stillwtm.site/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/</loc>
     <lastmod>2022-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -146,14 +146,14 @@
   </url>
   
   <url>
-    <loc>https://www.stillwtm.site/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/CSAPP/</loc>
+    <loc>https://www.stillwtm.site/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.stillwtm.site/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://www.stillwtm.site/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/CSAPP/</loc>
     <lastmod>2022-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
