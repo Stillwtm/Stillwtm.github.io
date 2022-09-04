@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="LdMdbT7dnIAKjfdC2IFvOgW8Kd1tIwuuHHLT2RqQg4k">
+  <meta name="baidu-site-verification" content="<meta name="baidu-site-verification" content="code-aZzP8ZWOEt" />">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.stillwtm.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Effective C++读书笔记（下）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective C++读书笔记（下）">
+<meta property="og:url" content="https://www.stillwtm.site/posts/b0c96ca3.html">
+<meta property="og:site_name" content="Stillwtm&#39;s Blog">
+<meta property="og:description" content="Effective C++读书笔记（下）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-04T03:23:44.555Z">
+<meta property="article:modified_time" content="2022-09-04T03:31:50.561Z">
+<meta property="article:author" content="Stillwtm">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.stillwtm.site/posts/b0c96ca3.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Effective C++读书笔记（下） | Stillwtm's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Stillwtm's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.stillwtm.site/posts/b0c96ca3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Stillwtm">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stillwtm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Effective C++读书笔记（下）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-04 11:23:44 / 修改时间：11:31:50" itemprop="dateCreated datePublished" datetime="2022-09-04T11:23:44+08:00">2022-09-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/b0c96ca3.html" class="post-meta-item leancloud_visitors" data-flag-title="Effective C++读书笔记（下）" title="阅读数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">评论数：</span>
+    
+    <a title="valine" href="/posts/b0c96ca3.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/b0c96ca3.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">Effective C++读书笔记（下）</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文是笔者阅读Effective C++第三版时的读书笔记，主要内容包括：</p>
+<ul>
+<li>对书上内容的概括提取</li>
+<li>笔者自己不清楚的小知识点的提取</li>
+<li>对书中每个条款的后的“请记住”部分的（基本上是）原文摘录</li>
+</ul>
+<blockquote>
+<p>这种灰色部分一般是笔者自己的一些注释</p>
+</blockquote>
+<p>原书一共九章，本文（下篇）记录第七至九章的笔记</p>
+</blockquote>
+<h4 id="7-模板与泛型编程"><a href="#7-模板与泛型编程" class="headerlink" title="7. 模板与泛型编程"></a>7. 模板与泛型编程</h4><h5 id="条款41：了解隐式接口和编译期多态"><a href="#条款41：了解隐式接口和编译期多态" class="headerlink" title="条款41：了解隐式接口和编译期多态"></a>条款41：了解隐式接口和编译期多态</h5><hr>
+<p><strong><em>classes和 templates都支持接口和多态</em></strong></p>
+<p><strong><em>对 classes而言接口是显式的，以函数签名为中心；多态则是通过 virtual函数发生于运行期</em></strong></p>
+<p><strong><em>对 template参数而言，接口是隐式的，基于有效表达式；多态则是通过 template具现化和函数重载解析发生于编译期</em></strong></p>
+<hr>
+<h5 id="条款42：了解typename的双重意义"><a href="#条款42：了解typename的双重意义" class="headerlink" title="条款42：了解typename的双重意义"></a>条款42：了解typename的双重意义</h5><ul>
+<li>应该再嵌套从属类型名称之前加上typename消除歧义<ul>
+<li>例外是，base class list和成员初值列中不应该加typename</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>声明 template参数时，前缀关键字 typename和 class可以互换</em></strong></p>
+<p><strong><em>请使用关键字 typename标识嵌套从属类型名称；但不得在基类列或成员初值列内以它作为 base class修饰符</em></strong></p>
+<hr>
+<h5 id="条款43：学习处理模板化基类内的名称"><a href="#条款43：学习处理模板化基类内的名称" class="headerlink" title="条款43：学习处理模板化基类内的名称"></a>条款43：学习处理模板化基类内的名称</h5><ul>
+<li>在继承模板类时，C++编译器不会进入base class查找某个名称，因为模板基类有可能被特化从而失去那个东西</li>
+<li><p>若要让编译器看到模板类中的名称（即对编译器承诺基类的每一种特化都支持该接口），有三种方法：</p>
+<ul>
+<li>在调用基类函数之前加上<code>this-&gt;</code></li>
+<li>使用using声明式</li>
+<li><p>直接指出被调用的函数位于基类中（通过作用域限定符）</p>
+<ul>
+<li>这种方法不是很好，因为它会关闭virtual绑定行为</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>-&gt;<span class="built_in">func</span>();  <span class="comment">// 方法一</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> BaseClass&lt;T&gt;::<span class="built_in">func</span>();  <span class="comment">// 方法二</span></span><br><span class="line"><span class="built_in">func</span>();</span><br><span class="line"></span><br><span class="line">BaseClass&lt;T&gt;::<span class="built_in">func</span>();  <span class="comment">// 方法三</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>编译器诊断的时间可能发生在早期（解析derived class template的定义式时），也可能发生在晚期（具现化该template时）；C++的政策是宁愿较早诊断</p>
+</li>
+</ul>
+<hr>
+<p><strong><em>可在 derived class templates内通过<code>this-&gt;</code>指涉 base class templates内的成员名称，或藉由一个明白写出的 “base class资格修饰符 ”完成</em></strong></p>
+<hr>
+<h5 id="条款44：将与参数无关的代码抽离templates"><a href="#条款44：将与参数无关的代码抽离templates" class="headerlink" title="条款44：将与参数无关的代码抽离templates"></a>条款44：将与参数无关的代码抽离templates</h5><ul>
+<li><p>使用非类型参数的模板可以藉由编译期常量的广传达到最优化；而使用函数参数的版本则可能减少可执行文件的大小，也就降低程序的working set大小，并强化程序高速缓存区的引用集中化(locality of reference)</p>
+<ul>
+<li>欲知哪种影响占据主要地位，应该进行实验</li>
+</ul>
+<blockquote>
+<p>working set指对一个在“虚内存环境”下执行的进程而言，所使用的那一组内存页(pages)</p>
+</blockquote>
+</li>
+<li><p>某些连接器会合并完全相同的函数实现码，而某些不会，后者意味着实际上相同的参数也可能会具现出两个版本（例如许多平台上<code>int</code>和<code>long</code>二进制表述实际相同）</p>
+<ul>
+<li>由于指针类型的二进制表述完全相同，所以当指针作为模板参数时，实际上应该让他们调用另一个操作<code>void*</code>的函数作为底层实现，以此避免代码膨胀</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>Templates生成多个 classes和多个函数，所以任何 template代码都不该与某个造成膨胀的 template参数产生相依关系</em></strong></p>
+<p><strong><em>因非类型模板参数而造成的代码膨胀，往往可以消除，做法是以函数参数或 class成员变量替换 template参数</em></strong></p>
+<p><strong><em>因类型参数而造成的代码膨胀，往往可降低，做法是让带有完全相同二进制表述的具现类型(instantiation types)共享实现码</em></strong></p>
+<hr>
+<h5 id="条款45：运用成员函数模板接受所有兼容类型"><a href="#条款45：运用成员函数模板接受所有兼容类型" class="headerlink" title="条款45：运用成员函数模板接受所有兼容类型"></a>条款45：运用成员函数模板接受所有兼容类型</h5><ul>
+<li><p>使智能指针也支持隐式转换：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SmartPtr</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</span></span><br><span class="line"><span class="function">    <span class="title">SmartPtr</span><span class="params">(<span class="type">const</span> SmartPtr&lt;U&gt;&amp; other)</span></span></span><br><span class="line"><span class="function">    	: heldPtr(other.get()) &#123;</span> ... &#125;  <span class="comment">// 这里利用heldPtr的赋值提供了转换的约束</span></span><br><span class="line">    <span class="function">T* <span class="title">get</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> heldPtr; &#125;</span><br><span class="line">	... </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T* heldPtr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除了拷贝构造，也可以类似地实现赋值操作符等，具体见书P221</p>
+</li>
+<li>在类内声明泛化拷贝构造并不会阻止编译器自动生成普通的拷贝构造，所以应同时声明泛化的和“正常的”两种版本</li>
+</ul>
+<hr>
+<p><strong><em>请使用 member function templates生成 “可接受所有兼容类型 ”的函数</em></strong></p>
+<p><strong><em>如果你声明 member function templates用于 “泛化 copy构造 ”或 “泛化 assignment操作 ”，你还是需要声明正常的 copy构造函数和 copy assignment操作符</em></strong></p>
+<hr>
+<h5 id="条款46：需要类型转换时请为模板定义非成员函数"><a href="#条款46：需要类型转换时请为模板定义非成员函数" class="headerlink" title="条款46：需要类型转换时请为模板定义非成员函数"></a>条款46：需要类型转换时请为模板定义非成员函数</h5><ul>
+<li>template实参推导过程中从不将隐式类型转换函数纳入考虑（也就是说，应该先推定参数类型后，才可能进行隐式类型转换以符合该类型）</li>
+<li>当模板函数的参数需要支持某个<strong>模板类</strong>的隐式类型转换时，可以将该函数定义为该模板类的<strong>友元</strong>，这样具现模板类的时候同样会具现这个友元函数，从而可以免去模板参数类型推定</li>
+</ul>
+<hr>
+<p><strong><em>当我们编写一个 class template，而它所提供的 “与此 template相关的 ”函数支持 “所有参数的隐式类型转换 ”时，请将那些函数定义为 class template的 friend函数</em></strong></p>
+<hr>
+<h5 id="条款47：请使用traits-classes表现类型信息"><a href="#条款47：请使用traits-classes表现类型信息" class="headerlink" title="条款47：请使用traits classes表现类型信息"></a>条款47：请使用traits classes表现类型信息</h5><ul>
+<li><p>设计并实现一个traits class来表现类型信息：</p>
+<blockquote>
+<p>traits通常被实现为structs，却往往被称为trait classes</p>
+</blockquote>
+<ul>
+<li>确认你希望将来可取得的类型相关信息，例如迭代器的种类</li>
+<li>为该信息选择一个名称，例如iteration_category</li>
+<li>提供一个template和一组特化版本，内含希望支持的类型相关信息，一般会使用一个typedef</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">input_iteration_tag</span> &#123;&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">output_iteration_tag</span> &#123;&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">forward_iteration_tag</span>: <span class="keyword">public</span> input_iteration_tag &#123;&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">bidirectional_iteration_tag</span>: <span class="keyword">public</span> forward_iteration_tag &#123;&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">random_access_iteration_tag</span>: <span class="keyword">public</span> bidirectional_iteration_tag &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">deque</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">iterator</span> &#123;</span><br><span class="line">        <span class="keyword">typedef</span> random_access_iteration_tag iterator_category;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> IterT&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">iterator_traits</span> &#123;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> IterT::iterator_category iterator_category;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 针对指针的偏特化，因为traits应该对用户定义类型和内置类型表现同样好</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> IterT&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">iterator_traits</span>&lt;T*&gt; &#123;</span><br><span class="line">    <span class="comment">// 指针应该和随机访问迭代器类似</span></span><br><span class="line">    <span class="keyword">typedef</span> random_access_iteration_tag iterator_category;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用一个trait class来在编译期确定类型</p>
+<blockquote>
+<p>下面的写法免去使用typeid()在运行时判断类型，而是利用函数重载，这也看出为什么上面的实现使用struct来描述类型而非enum</p>
+</blockquote>
+<ul>
+<li>建立一组重载函数，彼此间的差异只在于各自的traits参数</li>
+<li>建立一个控制函数，它调用上述那些函数并传递traits classes所提供的信息</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> IterT, <span class="keyword">typename</span> DistT&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">doAdvance</span><span class="params">(IterT&amp; iter, DistT d,</span></span></span><br><span class="line"><span class="params"><span class="function">              random_access_iteration_tag)</span> </span>&#123;</span><br><span class="line">    iter += d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> IterT, <span class="keyword">typename</span> DistT&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">doAdvance</span><span class="params">(IterT&amp; iter, DistT d,</span></span></span><br><span class="line"><span class="params"><span class="function">              bidirectional_iteration_tag)</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> IterT, <span class="keyword">typename</span> DistT&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">doAdvance</span><span class="params">(IterT&amp; iter, DistT d,</span></span></span><br><span class="line"><span class="params"><span class="function">              input_iteration_tag)</span> </span>&#123;  <span class="comment">// 这份实现同样适用于forward，这是继承关系的红利</span></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> IterT, <span class="keyword">typename</span> DistT&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">advance</span><span class="params">(IterT&amp; iter, DistT d)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">doAdvance</span>(iter, d,</span><br><span class="line">             <span class="keyword">typename</span> iterator_traits&lt;IterT&gt;::<span class="built_in">iterator_category</span>())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<p><strong><em>Traits classes使得 “类型相关信息 “在编译期可用。他们以templates和 “templates特化 “完成实现</em></strong></p>
+<p><strong><em>整合重载技术后，traits classes有可能在编译期对类型执行 if-else测试</em></strong></p>
+<hr>
+<h5 id="条款48：认识template元编程"><a href="#条款48：认识template元编程" class="headerlink" title="条款48：认识template元编程"></a>条款48：认识template元编程</h5><ul>
+<li><p>TMP是图灵完备的</p>
+</li>
+<li><p>TMP的一些用处举例：</p>
+<ul>
+<li><p>在工程中，可以在编译期确保各种量纲正确</p>
+</li>
+<li><p>优化矩阵运算</p>
+</li>
+<li><p>可以生成用户定制之设计模式</p>
+<blockquote>
+<p>此处运用尚不清晰</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>Template metaprogramming可将工作由运行期移往编译期，因而得以实现早期错误侦测和更高的执行效率</em></strong></p>
+<p><strong><em>TMP可被用来生成 “基于policy选择组合 ”的客户定制代码，也可用来避免生成对某些特殊类型并不合适的代码</em></strong></p>
+<hr>
+<h4 id="8-定制new和delete"><a href="#8-定制new和delete" class="headerlink" title="8. 定制new和delete"></a>8. 定制new和delete</h4><h5 id="条款49：了解new-handler的行为"><a href="#条款49：了解new-handler的行为" class="headerlink" title="条款49：了解new-handler的行为"></a>条款49：了解new-handler的行为</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> std &#123;</span><br><span class="line">    <span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*new_handler)</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">new_handler <span class="title">set_new_handler</span><span class="params">(new_handler p)</span> <span class="title">throw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>set_new_handler</code>的参数是个函数指针，指向<code>operator new</code>无法分配内存时希望被调用的函数（称为new-handler）；返回值是当前正在使用的new-handler</p>
+</li>
+<li><p>当<code>operator new</code>无法满足内存申请时，它会不断调用new-handler函数，直到找到足够内存</p>
+</li>
+<li><p>设计一个良好的new-handler函数有以下几种选择：</p>
+<ul>
+<li><strong>让更多内存可被使用</strong>，例如程序一开始就分配一大块内存，而后调用new-handler时返还给程序使用</li>
+<li><strong>安装另一个new-handler</strong>，即调用<code>set_new_handler</code>函数换一个可能能成功分配内存的new-handler</li>
+<li><strong>卸除new-handler</strong>，即给<code>set_new_handler</code>函数传入<code>null</code>，这样会<code>operator new</code>会在内存分配失败时抛出异常</li>
+<li><strong>抛出bad_alloc</strong>，此种异常不会被<code>operator new</code>捕捉，因此会被传递到内存索求处</li>
+<li><strong>不返回</strong>，通常调用<code>abort</code>或<code>exit</code></li>
+</ul>
+</li>
+<li><p>下面是一个”minxin”风格的base class，来使继承它的类有自己专属的new-handler</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 资源处理类，支持基础的RAII操作</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NewHandlerHolder</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">NewHandlerHolder</span><span class="params">(std::new_handler nh)</span> : handler(nh) &#123;</span> &#125;</span><br><span class="line">    ~<span class="built_in">NewHandlerHolder</span>() &#123; std::<span class="built_in">set_new_handler</span>(hanlder); &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::new_handler handler;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NewHandlerHolder</span>(<span class="type">const</span> NewHandlerHolder&amp;);  <span class="comment">// 阻止copying，见条款14</span></span><br><span class="line">    NewHandlerHolder&amp; <span class="keyword">operator</span>=(<span class="type">const</span> NewHandlerHolder&amp;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// mixin风格的base class，用以支持class专属的set_new_handler</span></span><br><span class="line"><span class="comment">// 此处的类型参数T无需被使用，它的目的仅仅是为了让继承自NewHandlerSupport的每一个class，</span></span><br><span class="line"><span class="comment">// 拥有实体互异的NewHandlerSupport复件(或者说static成员变量currentHandler)</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NewHandlerSupport</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> std::new_handler <span class="title">set_new_handler</span><span class="params">(std::new_handler p)</span> <span class="title">throw</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(std::<span class="type">size_t</span> size)</span> <span class="title">throw</span><span class="params">(std::bad_alloc)</span></span>;</span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> std::new_handler currentHandler;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::new_handler NewHandlerSupport&lt;T&gt;::<span class="built_in">set_new_handler</span>(std::new_handler p) <span class="keyword">throw</span>() &#123;</span><br><span class="line">    std::new_handler oldHandler = currentHandler;</span><br><span class="line">    currentHandler = p;</span><br><span class="line">    <span class="keyword">return</span> oldHander;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(std::<span class="type">size_t</span> size)</span> <span class="title">throw</span><span class="params">(std::bad_alloc)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 函数结束调用h的析构，自动变回原来的new-handler</span></span><br><span class="line">    <span class="function">NewHandlerHolder <span class="title">h</span><span class="params">(std::set_new_handler(currentHandler))</span></span>;</span><br><span class="line">    <span class="keyword">return</span> ::<span class="keyword">operator</span> <span class="built_in">new</span>(size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下将每一个currentHandler初始化为null</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::new_handler NewHandlerSupport&lt;T&gt;::currentHandler = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用时，只需继承即可</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span>: <span class="keyword">public</span> NewHandlerSupport&lt;Widget&gt; &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面这种<code>Widget</code>继承自一个模板基类，且该基类以<code>Widget</code>为类型参数的手法，称为<strong>CRTP</strong>(curiously recurring template pattern)</li>
+</ul>
+</li>
+<li><p>古老的<code>operator new</code>在无法分配足够内存时返回<code>null</code>，可以通过<code>new (std::nothrow)</code>来调用</p>
+<ul>
+<li>但这种方式仍没有异常安全保证，因为它只保证分配内存给对象时不抛掷异常，而对象的构造函数中仍可能进行new操作，而这个new是没有保证的</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em><code>set_new_handler</code>允许客户指定一个函数，在内存分配无法获得满足时被调用</em></strong></p>
+<p><strong><em>Nothrow new是一个颇为局限的工具，因为它只适用于内存分配；后继的构造函数调用还是可能抛出异常</em></strong></p>
+<hr>
+<h5 id="条款50：了解new和delete的合理替换时机"><a href="#条款50：了解new和delete的合理替换时机" class="headerlink" title="条款50：了解new和delete的合理替换时机"></a>条款50：了解new和delete的合理替换时机</h5><ul>
+<li>替换new和delete的理由如下<ul>
+<li><strong>为了检测运用错误</strong></li>
+<li><strong>为了收集动态分配内存之使用统计信息</strong></li>
+<li><strong>为了增加分配和归还的速度</strong></li>
+<li><strong>为了降低缺省内存管理器带来的额外空间开销</strong></li>
+<li><strong>为了弥补缺省分配器中的非最佳齐位</strong>，例如编译器自带的<code>operator new</code>s并不保证对动态分配的<code>double</code>采用8-byte齐位</li>
+<li><strong>为了将相关对象成簇集中</strong>，例如某个数据结构往往被一起使用，就可以被成簇集中在某个内存页上</li>
+<li><strong>为了获得非传统的行为</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>有许多理由需要写个自定的 new和 delete，包括改善效能、对 heap运用错误进行调试、收集 heap使用信息</em></strong></p>
+<hr>
+<h5 id="条款51：编写new和delete时需固守常规"><a href="#条款51：编写new和delete时需固守常规" class="headerlink" title="条款51：编写new和delete时需固守常规"></a>条款51：编写new和delete时需固守常规</h5><ul>
+<li><code>operator new</code>成员函数会被派生类继承，而派生类的大小通常比基类大，所以一般需要处理申请的size不正确的情况（例如在不正确时调用标准的<code>operator new</code>来解决问题）</li>
+<li>C++保证删除<code>null</code>指针永远安全</li>
+</ul>
+<hr>
+<p><strong><em>operator new应该内含一个无穷循环，并在其中尝试分配内存，如果它无法满足内存需求，就该调用 new-handler。它也应该有能力处理 0 bytes申请。Class专属版本还应该处理 “比正确大小更大的（错误）申请 ”</em></strong></p>
+<p><strong><em>operator delete应该在收到 null指针时不做任何事。Class专属版本还应该处理 “比正确大小更大的（错误）申请 ”</em></strong></p>
+<hr>
+<h5 id="条款52：写了placement-new也要写placement-delete"><a href="#条款52：写了placement-new也要写placement-delete" class="headerlink" title="条款52：写了placement new也要写placement delete"></a>条款52：写了placement new也要写placement delete</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(std::<span class="type">size_t</span> size)</span> <span class="title">throw</span><span class="params">(std::bad_alloc)</span></span>;  <span class="comment">// 正常的operator new签名式</span></span><br><span class="line"><span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="type">void</span>* rawMemory)</span> <span class="title">throw</span><span class="params">()</span></span>;  <span class="comment">// global作用域中的正常签名式</span></span><br><span class="line"><span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="type">void</span>* rawMemory, std::<span class="type">size_t</span> size)</span> <span class="title">throw</span><span class="params">()</span></span>;  <span class="comment">// class作用域中典型的签名式</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>如果<code>operator new</code>接受的参数除了一定会有的那个<code>size_t</code>之外还有其他，便是一个所谓的<strong><em>placement</em> new</strong></p>
+<ul>
+<li><p>C++标准库中有一种placement new版本，它的用途之一是在<code>vector</code>的未使用空间上创建对象</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;new&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(std::<span class="type">size_t</span> size, <span class="type">void</span>* pMemory)</span> <span class="title">throw</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如果内存分配成功后构造函数发生异常，那么运行期系统会寻找“ <strong>额外参数个数和类型都与<code>operator new</code>相同</strong> ”的某个<code>operator delete</code>（<strong><em>placement</em> delete</strong>）并调用以恢复旧观；若找不到，就什么也不做（于是导致内存泄漏）</p>
+</li>
+<li><p>placement delete<strong>只有</strong>在 ” 伴随placement new调用而触发的构造函数 “ 异常时才会被调用</p>
+</li>
+<li><p>由于名称遮掩的问题（见条款33），再类中只定义placement new会导致global的<code>operator new</code>名称被遮掩从而不可用</p>
+<ul>
+<li>一种做法是，建立一个base class，内含所有正常形式的new/delete，然后利用继承机制和<code>using</code>声明式</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>当你写一个 placement new，请确定也写出了对应的 placement delete。如果没有这样做，你的程序可能会发生隐微而时断时续的内存泄漏</em></strong></p>
+<p><strong><em>当你声明 placement new和 placement delete，请确定不要无意识地遮掩了它们的正常版本</em></strong></p>
+<hr>
+<h4 id="9-杂项讨论"><a href="#9-杂项讨论" class="headerlink" title="9. 杂项讨论"></a>9. 杂项讨论</h4><h5 id="条款53：不要轻忽编译器的警告"><a href="#条款53：不要轻忽编译器的警告" class="headerlink" title="条款53：不要轻忽编译器的警告"></a>条款53：不要轻忽编译器的警告</h5><hr>
+<p><strong><em>严肃对待编译器发出的警告信息。努力在你的编译器的最高（最严苛）警告级别下争取 “无任何警告 ”的荣誉</em></strong></p>
+<p><strong><em>不要过度依赖编译器的报警能力，因为不同的编译器对待事情的态度并不相同。一旦移植到另一个编译器上，你原本依赖的警告信息可能会消失</em></strong></p>
+<hr>
+<h5 id="条款54：让自己熟悉包括TR1在内的标准程序库"><a href="#条款54：让自己熟悉包括TR1在内的标准程序库" class="headerlink" title="条款54：让自己熟悉包括TR1在内的标准程序库"></a>条款54：让自己熟悉包括TR1在内的标准程序库</h5><blockquote>
+<p>注意，这章落笔于2005年初</p>
+</blockquote>
+<ul>
+<li><p>TR1代表”Technical Report 1”，这实际上是一份文档</p>
+</li>
+<li><p>一些重要的TR1组件如下</p>
+<ul>
+<li>智能指针</li>
+<li><code>tr1::function</code>，用以表示任何可调用物</li>
+<li><code>tr1::bind</code></li>
+<li>Hash tables，例如<code>tr1::unordered_map</code>之类</li>
+<li>正则表达式</li>
+<li>Tuples</li>
+<li><code>tr1::array</code>，一个“STL化”数组，其大小固定</li>
+<li><code>tr1::mem_fn</code></li>
+<li><code>tr1::reference_wrapper</code></li>
+<li>随机数生成工具</li>
+<li>数学特殊函数，包括Lagrange多项式，Bessel函数等</li>
+<li>C99兼容扩充</li>
+<li>一些template编程技术<ul>
+<li>Type traits</li>
+<li><code>tr1::result_of</code>，用于指涉函数调用的返回类型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>C++标准程序库的主要机能由STL、iostreams、locales组成。并包含C99标准程序库</em></strong></p>
+<p><strong><em>TR1添加了智能指针、一般化函数指针、hash-based容器、正则表达式以及另外10个组件的支持</em></strong></p>
+<p><strong><em>TR1自身只是一份规范。为获得 TR1提供的好处、你需要一份实物。一个好的实物来源是Boost</em></strong></p>
+<hr>
+<h5 id="条款55：让自己熟悉Boost"><a href="#条款55：让自己熟悉Boost" class="headerlink" title="条款55：让自己熟悉Boost"></a>条款55：让自己熟悉Boost</h5><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.boost.org/">Boost C++ Libraries</a></p>
+</blockquote>
+<hr>
+<p><strong><em>Boost是一个社群，也是一个网站。致力于免费、源码开放、同僚复审的 C++程序库开发。Boost在 C++标准化过程中扮演深具影响力的角色</em></strong></p>
+<p><strong><em>Boost提供许多 TR1组件实现品，以及许多其他程序库</em></strong></p>
+<hr>
+<blockquote>
+<p>受笔者知识水平和表达能力所限，有些问题上难免出现疏漏，欢迎在评论区指正</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/35909c41.html" rel="prev" title="Effective C++读书笔记（中）">
+      <i class="fa fa-chevron-left"></i> Effective C++读书笔记（中）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">7. 模板与泛型编程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE41%EF%BC%9A%E4%BA%86%E8%A7%A3%E9%9A%90%E5%BC%8F%E6%8E%A5%E5%8F%A3%E5%92%8C%E7%BC%96%E8%AF%91%E6%9C%9F%E5%A4%9A%E6%80%81"><span class="nav-number">1.1.</span> <span class="nav-text">条款41：了解隐式接口和编译期多态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE42%EF%BC%9A%E4%BA%86%E8%A7%A3typename%E7%9A%84%E5%8F%8C%E9%87%8D%E6%84%8F%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">条款42：了解typename的双重意义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE43%EF%BC%9A%E5%AD%A6%E4%B9%A0%E5%A4%84%E7%90%86%E6%A8%A1%E6%9D%BF%E5%8C%96%E5%9F%BA%E7%B1%BB%E5%86%85%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">1.3.</span> <span class="nav-text">条款43：学习处理模板化基类内的名称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE44%EF%BC%9A%E5%B0%86%E4%B8%8E%E5%8F%82%E6%95%B0%E6%97%A0%E5%85%B3%E7%9A%84%E4%BB%A3%E7%A0%81%E6%8A%BD%E7%A6%BBtemplates"><span class="nav-number">1.4.</span> <span class="nav-text">条款44：将与参数无关的代码抽离templates</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE45%EF%BC%9A%E8%BF%90%E7%94%A8%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E6%8E%A5%E5%8F%97%E6%89%80%E6%9C%89%E5%85%BC%E5%AE%B9%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">条款45：运用成员函数模板接受所有兼容类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE46%EF%BC%9A%E9%9C%80%E8%A6%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%97%B6%E8%AF%B7%E4%B8%BA%E6%A8%A1%E6%9D%BF%E5%AE%9A%E4%B9%89%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">条款46：需要类型转换时请为模板定义非成员函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE47%EF%BC%9A%E8%AF%B7%E4%BD%BF%E7%94%A8traits-classes%E8%A1%A8%E7%8E%B0%E7%B1%BB%E5%9E%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">1.7.</span> <span class="nav-text">条款47：请使用traits classes表现类型信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE48%EF%BC%9A%E8%AE%A4%E8%AF%86template%E5%85%83%E7%BC%96%E7%A8%8B"><span class="nav-number">1.8.</span> <span class="nav-text">条款48：认识template元编程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%AE%9A%E5%88%B6new%E5%92%8Cdelete"><span class="nav-number">2.</span> <span class="nav-text">8. 定制new和delete</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE49%EF%BC%9A%E4%BA%86%E8%A7%A3new-handler%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="nav-number">2.1.</span> <span class="nav-text">条款49：了解new-handler的行为</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE50%EF%BC%9A%E4%BA%86%E8%A7%A3new%E5%92%8Cdelete%E7%9A%84%E5%90%88%E7%90%86%E6%9B%BF%E6%8D%A2%E6%97%B6%E6%9C%BA"><span class="nav-number">2.2.</span> <span class="nav-text">条款50：了解new和delete的合理替换时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE51%EF%BC%9A%E7%BC%96%E5%86%99new%E5%92%8Cdelete%E6%97%B6%E9%9C%80%E5%9B%BA%E5%AE%88%E5%B8%B8%E8%A7%84"><span class="nav-number">2.3.</span> <span class="nav-text">条款51：编写new和delete时需固守常规</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE52%EF%BC%9A%E5%86%99%E4%BA%86placement-new%E4%B9%9F%E8%A6%81%E5%86%99placement-delete"><span class="nav-number">2.4.</span> <span class="nav-text">条款52：写了placement new也要写placement delete</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E6%9D%82%E9%A1%B9%E8%AE%A8%E8%AE%BA"><span class="nav-number">3.</span> <span class="nav-text">9. 杂项讨论</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE53%EF%BC%9A%E4%B8%8D%E8%A6%81%E8%BD%BB%E5%BF%BD%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E8%AD%A6%E5%91%8A"><span class="nav-number">3.1.</span> <span class="nav-text">条款53：不要轻忽编译器的警告</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE54%EF%BC%9A%E8%AE%A9%E8%87%AA%E5%B7%B1%E7%86%9F%E6%82%89%E5%8C%85%E6%8B%ACTR1%E5%9C%A8%E5%86%85%E7%9A%84%E6%A0%87%E5%87%86%E7%A8%8B%E5%BA%8F%E5%BA%93"><span class="nav-number">3.2.</span> <span class="nav-text">条款54：让自己熟悉包括TR1在内的标准程序库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE55%EF%BC%9A%E8%AE%A9%E8%87%AA%E5%B7%B1%E7%86%9F%E6%82%89Boost"><span class="nav-number">3.3.</span> <span class="nav-text">条款55：让自己熟悉Boost</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Stillwtm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stillwtm</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/gh/Stillwtm/Blog_cdn/js/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'jERTy9wlNPVGpmbUSmeXMDMu-gzGzoHsz',
+      appKey     : 'c2bh6kdRoUO5RjWNHGVj6EgX',
+      placeholder: "邮箱处填入qq邮箱可以自动显示qq头像和昵称哦! &#13;&#10; 也支持Gravater头像！&#13;&#10; 评论支持Markdown! &#13;&#10; 欢迎评论! \\^o^/",
+      avatar     : 'mp',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://jerty9wl.lc-cn-n1-shared.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

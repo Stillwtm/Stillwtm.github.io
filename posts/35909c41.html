@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="LdMdbT7dnIAKjfdC2IFvOgW8Kd1tIwuuHHLT2RqQg4k">
+  <meta name="baidu-site-verification" content="<meta name="baidu-site-verification" content="code-aZzP8ZWOEt" />">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.stillwtm.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Effective C++读书笔记（中）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective C++读书笔记（中）">
+<meta property="og:url" content="https://www.stillwtm.site/posts/35909c41.html">
+<meta property="og:site_name" content="Stillwtm&#39;s Blog">
+<meta property="og:description" content="Effective C++读书笔记（中）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-04T03:23:11.763Z">
+<meta property="article:modified_time" content="2022-09-04T03:27:59.828Z">
+<meta property="article:author" content="Stillwtm">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.stillwtm.site/posts/35909c41.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Effective C++读书笔记（中） | Stillwtm's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Stillwtm's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.stillwtm.site/posts/35909c41.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Stillwtm">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stillwtm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Effective C++读书笔记（中）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-04 11:23:11 / 修改时间：11:27:59" itemprop="dateCreated datePublished" datetime="2022-09-04T11:23:11+08:00">2022-09-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/35909c41.html" class="post-meta-item leancloud_visitors" data-flag-title="Effective C++读书笔记（中）" title="阅读数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">评论数：</span>
+    
+    <a title="valine" href="/posts/35909c41.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/35909c41.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">Effective C++读书笔记（中）</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文是笔者阅读Effective C++第三版时的读书笔记，主要内容包括：</p>
+<ul>
+<li>对书上内容的概括提取</li>
+<li>笔者自己不清楚的小知识点的提取</li>
+<li>对书中每个条款的后的“请记住”部分的（基本上是）原文摘录</li>
+</ul>
+<blockquote>
+<p>这种灰色部分一般是笔者自己的一些注释</p>
+</blockquote>
+<p>原书一共九章，本文（中篇）记录第四至六章的笔记</p>
+</blockquote>
+<h4 id="4-设计与声明"><a href="#4-设计与声明" class="headerlink" title="4. 设计与声明"></a>4. 设计与声明</h4><h5 id="条款18：让接口容易被正确使用，不易被误用"><a href="#条款18：让接口容易被正确使用，不易被误用" class="headerlink" title="条款18：让接口容易被正确使用，不易被误用"></a>条款18：让接口容易被正确使用，不易被误用</h5><ul>
+<li><p>为了预防传递参数顺序错误之类的事情发生，可以将参数封装成类，然后让用户必须显式构造后进行传递，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>(<span class="type">int</span> month, <span class="type">int</span> day, <span class="type">int</span> year);  <span class="comment">// 这不好</span></span><br><span class="line"><span class="built_in">Date</span>(<span class="type">const</span> Month&amp; m, <span class="type">const</span> Day&amp; d, <span class="type">const</span> Year&amp; y);  <span class="comment">// 这比较好</span></span><br><span class="line"></span><br><span class="line"><span class="function">Date <span class="title">d</span><span class="params">(Month(<span class="number">3</span>), Day(<span class="number">3</span>), Year(<span class="number">2022</span>))</span></span>;  <span class="comment">// 从而用户必须这样调用</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用enum来限制参数的值的范围不够好，因为enum没有类型安全性（可以被当成int使用），比较安全的做法是预先定义好所有的可能值，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Month</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">static</span> Month <span class="title">Jan</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="built_in">Month</span>(<span class="number">1</span>); &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用函数是因为non-local static对象在不同编译单元的次序没有明确规定（见条款04）</p>
+</li>
+<li><p>保持“一致性”是最重要的！（包括避免无端与内置类型不兼容）</p>
+</li>
+<li><p>多数平台上，跨DLL（动态链接库）的<code>new</code>/<code>delete</code>的成对应用会导致RE，而使用<code>shared_ptr</code>可避免这一问题</p>
+</li>
+</ul>
+<hr>
+<p><strong><em>好的接口很容易被使用，不容易被误用；你应该在你的所有接口中努力达成这些性质</em></strong></p>
+<p><strong><em>“促进正确使用 ”的办法包括接口的一致性，以及与内置类型的行为兼容</em></strong></p>
+<p><strong><em>“阻止误用 ”的办法包括建立新类型、限制类型上的操作，束缚对象值，以及消除客户的资源管理责任</em></strong></p>
+<p><strong><em><code>tr1::shared_ptr</code>支持定制型删除器；这可以防范 DLL问题，可被用来自动解除互斥锁等等</em></strong></p>
+<hr>
+<h5 id="条款019：设计class犹如设计type"><a href="#条款019：设计class犹如设计type" class="headerlink" title="条款019：设计class犹如设计type"></a>条款019：设计class犹如设计type</h5><ul>
+<li><p>像“语言设计者设计内置类型”一样设计设计你的class（亦即设计一个新type），并且回答下述问题：</p>
+<ul>
+<li><p>新type的对象应该如何被创建或销毁？（涉及构造析构、内存分配操作符等）</p>
+</li>
+<li><p>对象的初始化和赋值的行为差异？</p>
+</li>
+<li><p>新type对象的pass by value，意味着什么？（值传递的行为被拷贝构造函数定义）</p>
+</li>
+<li><p>什么是新type的“合法值”？（这可能影响约束条件的维护、异常的抛出）</p>
+</li>
+<li><p>新type需要配合某个继承图系吗？（例如受基类函数是否virtual的影响，以及是否有作为基类的需求）</p>
+</li>
+<li><p>新type需要什么样的转换？（涉及单参数构造和类型转换操作符）</p>
+</li>
+<li><p>什么样的操作符和函数对此新type而言是合理的？</p>
+</li>
+<li><p>什么样的默认生成的函数应该驳回？（条款06）</p>
+</li>
+<li><p>什么是新type的“未声明接口”？</p>
+<blockquote>
+<p>确实，什么是未声明接口？个人猜测是不在类中定义，而是语言本身提供的一些接口</p>
+</blockquote>
+</li>
+<li><p>新type有多么一般化？（这决定了是否定义template class）</p>
+</li>
+<li>你真的需要一个新type吗？也许一个或几个函数更能达到要求</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>class的设计就是 type的设计。在定义一个新 type之前，请确定已经考虑过上述问题</em></strong></p>
+<hr>
+<h5 id="条款20：宁以pass-by-reference-to-const替换pass-by-value"><a href="#条款20：宁以pass-by-reference-to-const替换pass-by-value" class="headerlink" title="条款20：宁以pass-by-reference-to-const替换pass-by-value"></a>条款20：宁以pass-by-reference-to-const替换pass-by-value</h5><ul>
+<li>pass-by-reference还可以防止派生类被切割为基类，导致行为出错</li>
+<li>C++编译器的底层中，reference往往以指针实现，因此pass-by-reference通常真正传递的是指针<ul>
+<li>因此，内置类型（如int），传值效率往往比传引用高</li>
+<li>包括STL对象</li>
+</ul>
+</li>
+<li>对象小并不意味这拷贝构造不昂贵，因为复制它可能会导致复制对象中的指针指向的所有东西</li>
+<li>某些编译器对待“内置类型”和“用户自定义类型”的态度可能截然不同，即使他们底层表述类似<ul>
+<li>例如，一个只含一个double的对象可能被拒绝放入缓存器，但是它会对double这么做</li>
+<li>而pass-by-reference不会有问题，因为编译器当然会把指针放进缓存器里</li>
+</ul>
+</li>
+<li>另外一个原因是小的自定义类型有将来变大的可能，故不能传值</li>
+</ul>
+<hr>
+<p><strong><em>尽量以 pass-by-reference-to-const替换 pass-by-value；前者通常比较高效，并可避免切割问题</em></strong></p>
+<p><strong><em>以上规则不适用于内置类型，以及STL的迭代器和函数对象；它们应该 pass-by-value</em></strong></p>
+<hr>
+<h5 id="条款21：必须返回对象时，别妄想返回其reference"><a href="#条款21：必须返回对象时，别妄想返回其reference" class="headerlink" title="条款21：必须返回对象时，别妄想返回其reference"></a>条款21：必须返回对象时，别妄想返回其reference</h5><blockquote>
+<p>个人认为这里说“必须返回’新‘对象”比较恰当，若非新对象应参见条款29</p>
+</blockquote>
+<ul>
+<li>返回指向local栈对象的引用或指针会导致接下来对返回值的运用陷入“无定义行为”的恶地（因为该对象已被销毁）</li>
+<li>返回指向堆中对象的引用几乎必然导致内存泄漏（根本不知道如何delete）</li>
+<li>返回指向local static对象则会导致多线程以及更严重的行为完全错误（当同时需要多个返回值时，具体例子见书P93）</li>
+<li>一个“必须返回新对象”的函数的正确写法是：就让那个函数返回一个新对象呗</li>
+</ul>
+<hr>
+<p><strong><em>绝不要返回一个 pointer或 reference指向一个 local stack对象，或返回一个 reference指向一个 heap-located对象，或返回 pointer或 reference指向一个 local static对象而有可能同时需要多个这样的对象。条款 04中有返回 reference指向 local static对象的合理设计实例</em></strong></p>
+<hr>
+<h5 id="条款22：将成员变量声明为private"><a href="#条款22：将成员变量声明为private" class="headerlink" title="条款22：将成员变量声明为private"></a>条款22：将成员变量声明为private</h5><ul>
+<li>成员变量不是public的理由：<ul>
+<li>如果成员变量不是public，用户就无需记住访问成员时是否要加小括号（语法一致性！）</li>
+<li>非public可以精确控制成员变量的可访问性（是否可读可写之类）</li>
+<li>封装性，日后可以方便地以不同的实现方式替换某个变量，而用户接口并不变化</li>
+</ul>
+</li>
+<li>protected的封装性几乎和public一样差，因为一旦该变量被改变（比如删除），大量的用户的派生类代码需要重写</li>
+<li><p>其实只有两种访问权限：private（提供封装）和其他（不提供封装）</p>
+<blockquote>
+<p>个人认为protected本身就是为了破坏封装性的一种设计，就像friend一样</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong><em>切记将成员变量声明为 private；这可赋予客户访问数据的一致性、可细微划分访问控制、允许约束条件获得保证，并提供 class作者以充分的实现弹性</em></strong></p>
+<p><strong><em>protected并不比 public更具封装性</em></strong></p>
+<hr>
+<h5 id="条款23：宁以non-member、non-friend替换member函数"><a href="#条款23：宁以non-member、non-friend替换member函数" class="headerlink" title="条款23：宁以non-member、non-friend替换member函数"></a>条款23：宁以non-member、non-friend替换member函数</h5><ul>
+<li><p>非成员且非友元函数能够提供更好的封装性，因为这并不会增加能看到成员变量的函数的个数</p>
+<ul>
+<li>也可以是另一个类（例如一个工具类utility class）的static member函数</li>
+</ul>
+<blockquote>
+<p>本质上这样的函数并不能完成客户以其他方式无法取得的机能，即只是一种便利函数</p>
+</blockquote>
+</li>
+<li><p>能提供更大的包裹弹性，这导致更低的编译依赖度（修改非成员函数以包括更多功能并不需要编译相关类）</p>
+</li>
+<li>通常的做法是吧这个函数和类放在同一个命名空间里，而这么做可以方便建立一些新的便利函数并与原来的便利函数拥有相同地位</li>
+</ul>
+<hr>
+<p><strong><em>宁可那 non-member non-friend函数替换 member函数；这样做可以增加封装性、包裹弹性和机能扩充性</em></strong></p>
+<hr>
+<h5 id="条款24：若所有参数皆需类型转换，请为此采用non-member函数"><a href="#条款24：若所有参数皆需类型转换，请为此采用non-member函数" class="headerlink" title="条款24：若所有参数皆需类型转换，请为此采用non-member函数"></a>条款24：若所有参数皆需类型转换，请为此采用non-member函数</h5><ul>
+<li>例如有理数类的乘法实现（可能需要将int隐式转换为Rational类型）。并且它不应该是个friend，因为完全可以通过公有接口实现</li>
+</ul>
+<hr>
+<p><strong><em>如果你需要某个函数的所有参数（包括被 this指针所指的那个隐喻参数）进行类型转换，那么这个函数必须是个 non-member</em></strong></p>
+<hr>
+<h5 id="条款25：考虑写出一个不抛出异常的swap函数"><a href="#条款25：考虑写出一个不抛出异常的swap函数" class="headerlink" title="条款25：考虑写出一个不抛出异常的swap函数"></a>条款25：考虑写出一个不抛出异常的swap函数</h5><ul>
+<li><p>需要重写swap有几种原因：</p>
+<ul>
+<li>为了异常安全性编程（条款29）</li>
+<li><p>对于使用了pimpl(pointer to implementation)手法的class，可以大大提高复制效率</p>
+<blockquote>
+<p>这个手法是指类中只存储一些指针指向大量的资源，而它们的拷贝构造和赋值一般是深拷贝，开销很大，但事实上做swap只需要交换类里的指针即可，可以大大减少开销</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>模板函数不支持偏特化（或译为部分具体化，partially specialize），只有模板类支持</p>
+<ul>
+<li>一般做法是直接对函数进行重载（即舍去函数名后面为了特化而加的<code>&lt; &gt;</code>）</li>
+</ul>
+</li>
+<li>std是个特殊的命名空间，只允许对其中的模板进行特化，但是不可以添加任何新的templates；std的内容完全由C++标准委员会决定<ul>
+<li>虽然加了东西几乎也可编译运行，但它们的行为是未定义的，所以尽量避免</li>
+</ul>
+</li>
+<li>编译器看到<code>swap(T&amp; a, T&amp;b)</code>，会找到global作用域或T所在命名空间内的任何T专属的swap，并且调用的优先级为：T所在命名空间里的T专属的swap &gt; 特化的std::swap &gt; 一般化的std::swap（前提是提前加了<code>using std::swap;</code>）</li>
+</ul>
+<hr>
+<p><strong><em>当<code>std::swap</code>对你的类型效率不高时，提供一个 swap成员函数，并确定这个函数不抛出异常</em></strong></p>
+<p><strong><em>如果你提供一个 member swap，也该提供一个 non-member-swap用来调用前者；对于 class（非 template），也请特化<code>std::swap</code></em></strong></p>
+<p><strong><em>调用 swap时应针对<code>std::swap</code>使用<code>using</code>声明式，然后调用 swap并且不带任何 ”命名空间资格修饰 “</em></strong></p>
+<p><strong><em>为 ”用户自定义类型 “进行 std template全特化是好的，但千万不要尝试在 std里加入某些对 std而言全新的东西</em></strong></p>
+<hr>
+<h4 id="5-实现"><a href="#5-实现" class="headerlink" title="5. 实现"></a>5. 实现</h4><h5 id="条款26：尽可能延后变量定义式的出现时间"><a href="#条款26：尽可能延后变量定义式的出现时间" class="headerlink" title="条款26：尽可能延后变量定义式的出现时间"></a>条款26：尽可能延后变量定义式的出现时间</h5><ul>
+<li>延后变量定义的原因：<ul>
+<li>出现异常之类的情况可能使你实际并没有使用这个变量，然而仍需承担构造析构成本</li>
+<li>可以将变量延后至需要初值时再定义，并直接传给构造函数，消除赋值开销</li>
+</ul>
+</li>
+<li>关于变量在循环外还是循环内定义：<ul>
+<li>如果赋值成本相较于构造+析构较低，那么可以在循环外定义<ul>
+<li>但是循环外定义使得变量的作用域更大，这有可能降低程序的可理解性和易维护性</li>
+</ul>
+</li>
+<li>所以除非（1）你明确赋值成本（2）你正在处理代码中的效率高敏感度部分，否则应该使用循环内定义</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>尽量延后变量定义式的出现；这样做可增加程序的清晰度并改善程序效率</em></strong></p>
+<hr>
+<h5 id="条款27：尽量少做转型动作"><a href="#条款27：尽量少做转型动作" class="headerlink" title="条款27：尽量少做转型动作"></a>条款27：尽量少做转型动作</h5><ul>
+<li>即使指向同一个对象，基类指针和派生类指针的值可能并不相同（也就是说，单一变量可能拥有一个以上的地址！）</li>
+<li><code>dynamic_cast</code>的成本可能很高（例如有一个很普遍的实现版本是基于“class名称之字符串比较”，这可能会调用一堆strcmp）</li>
+<li>一连串基于<code>dynamic_cast</code>的判断总应该被“基于virtual函数调用”的方式取代</li>
+</ul>
+<hr>
+<p><strong><em>如果可以，尽量避免转型，特别是在注重效率的代码中避免 dynamic_cast；如果有个设计需要转型动作，试着发展无需转型的替代设计</em></strong></p>
+<p><strong><em>如果转型是必要的，试着将它隐藏在某个函数后面；客户可以调用该函数，而无需将转型放入他们自己的代码内</em></strong></p>
+<p><strong><em>宁可使用 C++-style转型，不要使用旧式转型；前者更容易辨识出来，而且也比较有着分门别类的职掌</em></strong></p>
+<hr>
+<h5 id="条款28：避免返回handles指向对象内部成分"><a href="#条款28：避免返回handles指向对象内部成分" class="headerlink" title="条款28：避免返回handles指向对象内部成分"></a>条款28：避免返回handles指向对象内部成分</h5><blockquote>
+<p>这里的handles是指引用、指针、迭代器等用来取得某个对象的东西</p>
+</blockquote>
+<ul>
+<li><p>成员变量的封装性最多只等于“返回其reference的函数”的访问级别</p>
+</li>
+<li><p>为了让某个类尽可能小，可能不会把东西存放在类里，而是另起一个struct之类来存东西，再让类去指它</p>
+<blockquote>
+<p>即先前所提pimpl设计方式</p>
+</blockquote>
+</li>
+<li><p>一旦某个handle比其所指变量更长寿，就会导致虚吊的问题（比如某个匿名变量被销毁，但是某个引用指向它的成员）</p>
+</li>
+<li><p>但是某些情况，例如<code>operator[]</code>对于string、vector仍需要返回引用</p>
+</li>
+</ul>
+<hr>
+<p><strong><em>避免返回 handles指向对象内部；遵守这个条款可增加封装性，帮助 const成员的行为像个 const，并将发生虚吊(dangling) handle</em></strong></p>
+<p><strong><em>的可能降到最低</em></strong></p>
+<hr>
+<h5 id="条款29：为“异常安全”而努力是值得的"><a href="#条款29：为“异常安全”而努力是值得的" class="headerlink" title="条款29：为“异常安全”而努力是值得的"></a>条款29：为“异常安全”而努力是值得的</h5><ul>
+<li><p>当异常被抛出时，带有异常安全性的函数会：</p>
+<ul>
+<li>不泄露任何资源</li>
+<li>不允许数据败坏（比如变量不再满足class的约束条件，本该有序的数组不再有序）</li>
+</ul>
+</li>
+<li><p>异常安全函数提供以下三个保证之一：</p>
+<ul>
+<li><p><strong>基本承诺</strong>：如果异常被抛出，程序内的所有事物仍然有效，没有对象或数据的败坏</p>
+</li>
+<li><p><strong>强烈保证</strong>：如果函数成功，就完全成功；如果失败，程序就恢复到“调用函数之前”的状态</p>
+<blockquote>
+<p>相较而言，基本承诺的函数可能在失败后使程序处于任意一个合法状态（比如缺省值之类，用户不能预料）</p>
+</blockquote>
+</li>
+<li><p><strong>不抛掷保证</strong>：承诺绝不抛出异常</p>
+<ul>
+<li>作用于内置类型身上的所有操作都提供nothrow保证</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在某件事情发生之后再改变表事情发生的对象的状态（比如一个计数变量cnt）</p>
+</li>
+<li>当“强烈保证”不切实际时（如时间空间消耗过大），应提供基本保证</li>
+</ul>
+<hr>
+<p><strong><em>异常安全函数即使发生异常也不会泄漏资源或允许任何数据结构败坏。这样的函数区分为三种可能的保证：基本型、强烈型、不抛异常型</em></strong></p>
+<p><strong><em>“强烈保证 ”往往能够以 copy-and-swap实现出来，但 “强烈保证 ”并非对所有函数都可实现或具备实现意义</em></strong></p>
+<p><strong><em>函数提供的 ”异常安全保证 “通常最高只等于其所调用各个函数的 ”异常安全保证 “中的最高者</em></strong></p>
+<hr>
+<h5 id="条款30：透彻了解inlining的里里外外"><a href="#条款30：透彻了解inlining的里里外外" class="headerlink" title="条款30：透彻了解inlining的里里外外"></a>条款30：透彻了解inlining的里里外外</h5><ul>
+<li>inline可以免除函数调用的开销，但也会使目标码变大</li>
+<li>编译器优化机制通常被设计用来浓缩那些“不含函数调用”的代码，所以当inline某个函数之后，<strong>或许</strong>编译器就因此有能力对它执行语境相关最优化；而大部分编译器不会对一个“outlined函数调用”执行如此优化</li>
+<li>如果inline函数的本体很小，编译器针对“函数本体”所产出的码可能比“函数调用”所产出的码更小，从而导致高效率</li>
+<li>inlining在大多数C++程序中是编译期行为（但仍有少数可以实现连接期甚至运行期inlining！）</li>
+<li><p>inline只是对编译器的一个<strong>申请</strong>，不是强制命令</p>
+<ul>
+<li>大部分编译器拒绝太复杂（如带有<strong>循环</strong>或<strong>递归</strong>）的函数inlining</li>
+<li>会拒绝所有的virtual函数inlining（因为虚函数要在运行期确定如何调用）</li>
+</ul>
+</li>
+<li><p>编译器通常不对“通过函数指针进行的调用”实施inlining</p>
+</li>
+<li>实际上构造和析构函数往往是inlining的糟糕候选人，即使是空的构造函数，编译器在实现时也可能在其中包含了基类构造，成员对象构造，以及相应的构造发生异常后的销毁以及异常传播</li>
+<li>inline函数一旦改变需要重新编译，而non-inline函数只需要重新连接</li>
+</ul>
+<hr>
+<p><strong><em>将大多数 inlining限制在小型、被频繁调用的函数身上。这可使日后的代码调试过程和二进制升级更容易，也可使潜在的代码膨胀问题最小化，使程序的速度提升机会最大化</em></strong></p>
+<p><strong><em>不要只因为 function templates出现在头文件，就将他们声明为 inline</em></strong></p>
+<hr>
+<h5 id="条款31：将文件间的编译依存关系降至最低"><a href="#条款31：将文件间的编译依存关系降至最低" class="headerlink" title="条款31：将文件间的编译依存关系降至最低"></a>条款31：将文件间的编译依存关系降至最低</h5><blockquote>
+<p>如果某个类的定义文件被改变，所有包含它的文件都需要被重新编译<br>而如果将接口和实现分离，就只有在接口被改变的时候才需要全部重新编译</p>
+</blockquote>
+<ul>
+<li><p>设计策略</p>
+<ul>
+<li><p>如果使用object reference或object pointers可以完成任务，就不要使用objects</p>
+</li>
+<li><p>尽量以class声明式替换class定义式</p>
+</li>
+<li><p>为声明式和定义式提供不同的头文件</p>
+<blockquote>
+<p>例如C++标准库里的<iosfwd>就是一个声明头文件，对应的定义包含在<sstream><streambuf><fstream><iostream>中</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>更一般的设计策略：</p>
+<ul>
+<li><strong>Handle class</strong>：使用pimpl思路，设计两个类，一个类中是实现，一个类只存储指针指向实现类的对象。两个类接口应当完全相同，在pointer类中只用调用实现类的函数即可</li>
+<li><strong>Interface class</strong>：使用抽象基类，并且一般在其中设置一个static的factory函数，用来调用派生类（具象类）的构造函数；具体的实现在派生类中完成</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>支持 ”编译依存最小化 “的一般构想是：相依于声明式，不要相依于定义式。基于此构想的两个手段是 Handle classes和 Interface classes</em></strong></p>
+<p><strong><em>程序库头文件应该以 “完全且仅有声明式 ”的形式存在。这种做法无论是否涉及 templates都适用</em></strong></p>
+<hr>
+<h4 id="6-继承与面向对象设计"><a href="#6-继承与面向对象设计" class="headerlink" title="6. 继承与面向对象设计"></a>6. 继承与面向对象设计</h4><h5 id="条款32：确定你的public继承塑膜出is-a关系"><a href="#条款32：确定你的public继承塑膜出is-a关系" class="headerlink" title="条款32：确定你的public继承塑膜出is-a关系"></a>条款32：确定你的public继承塑膜出is-a关系</h5><ul>
+<li><p>public继承意味着“is-a”关系</p>
+<ul>
+<li><p>所谓<strong>Liskov Substitution Principle</strong>：如果令class D继承自class B，那么B对象可派上用场的地方，D对象一样可以派上用场</p>
+<blockquote>
+<p>个人理解是，将基类完全替换成public继承的派生类，程序仍然应该正常运作</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>“public继承 ”意味着 is-a；适用与 base class身上的每一件事情也一定适用于 derived class身上，因为每一个 derived class对象也都是一个 base class对象</em></strong></p>
+<hr>
+<h5 id="条款33：避免遮掩继承而来的名称"><a href="#条款33：避免遮掩继承而来的名称" class="headerlink" title="条款33：避免遮掩继承而来的名称"></a>条款33：避免遮掩继承而来的名称</h5><ul>
+<li><p>C++的名称查找从最内的作用域开始，一层层向外查找直至global作用域</p>
+</li>
+<li><p>derived class作用域实际上是被嵌套在base class作用域里的</p>
+</li>
+<li><p>如果想在derived class里对base class的某个成员函数进行重载，不能够直接重载，这会导致函数名称的“遮掩”，即名称查找只能看到derived class里的函数，看不到base class里的函数</p>
+<blockquote>
+<p>这相当于在名称查找规则下is-a的关系被破坏了，这不好</p>
+</blockquote>
+</li>
+<li><p>解决手法有两种：</p>
+<ul>
+<li>使用<code>using Base::func;</code>的声明，消除遮掩</li>
+<li>在derived class中另写一个函数（转交函数），在其中直接调用<code>Base::func()</code><ul>
+<li>这种手法主要应该适用于private继承，对于public继承来说并不算好</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>derived class内的名称会遮掩 base class内的名称；在 public继承下没有人希望如此</em></strong></p>
+<p><strong><em>为了让被遮掩的名称再见天日，可使用 using声明式或转交函数</em></strong></p>
+<hr>
+<h5 id="条款34：区分接口继承和实现继承"><a href="#条款34：区分接口继承和实现继承" class="headerlink" title="条款34：区分接口继承和实现继承"></a>条款34：区分接口继承和实现继承</h5><ul>
+<li>成员函数的接口总是会被继承</li>
+<li>声明一个pure virtual函数的目的，是让派生类只继承函数接口</li>
+<li><p>声明一个impure virtual函数的目的，是让派生类继承该函数的接口和缺省实现</p>
+<ul>
+<li>如果直接在基类的virtual函数中定义一个缺省实现，那么它可能会在不想被调用的时候被调用（比如也许某个派生类忘了重写这个virtual函数）</li>
+<li><p>改进方法有二：</p>
+<ul>
+<li>将<code>func()</code>的缺省行为放在另一个函数<code>defaultFunc()</code>中，并将<code>func()</code>变为纯虚函数，只在想要的时候调用<code>defaultFunc</code>（通常<code>defaultFunc()</code>应该是protected non-virtual的）</li>
+<li><p>为纯虚函数<code>func()</code>提供一个缺省实现，然后通过<code>BaseClass::func()</code>对其进行显式调用（但是这种方法无法将缺省实现为protected）</p>
+<blockquote>
+<p>缺省也只是代码复用而已，是否缺省应该要受到程序设计者的主观控制，而这样的设计方法较好地减小了缺省不被控制的可能</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>声明一个non-virtual函数的目的，是让派生类继承函数的接口以及一份强制性实现</p>
+</li>
+</ul>
+<hr>
+<p><strong><em>接口继承和实现继承不同；在 public继承之下，derived class总是继承 base class的接口</em></strong></p>
+<p><strong><em>pure virtual函数之具体指定接口继承</em></strong></p>
+<p><strong><em>impure virtual函数具体指定接口继承及缺省实现继承</em></strong></p>
+<p><strong><em>non-virtual函数具体指定接口继承以及强制性实现继承</em></strong></p>
+<hr>
+<h5 id="条款35：考虑virtual函数以外的其他选择"><a href="#条款35：考虑virtual函数以外的其他选择" class="headerlink" title="条款35：考虑virtual函数以外的其他选择"></a>条款35：考虑virtual函数以外的其他选择</h5><ul>
+<li>使用non-virtual interface(NVI)手法，这是<strong>Template Method</strong>设计模式的一种特殊形式，即用public non-virtual成员函数包裹较低访问性(private/protected)的virtual函数<ul>
+<li>好处是可以在调用virtual函数之前之后确保进行某些操作</li>
+</ul>
+</li>
+<li>将virtual函数替换为“函数指针成员变量”，这是<strong>Strategy</strong>设计模式的一种分解表现形式<ul>
+<li>好处是可以让同一类对象的某个行为有不同的实现方法，甚至可以在运行期更换实现方法</li>
+</ul>
+</li>
+<li>将virtual函数替换为<code>tr1::function</code>成员变量，这也是<strong>Strategy</strong>设计模式的一种表现形式<ul>
+<li>在上一种的情况下更进一步，允许使用任何可调用物搭配一个兼容于需求的签名式</li>
+<li>如果要用成员函数，使用<code>tr1::bind()</code>可以为<code>tr1::function</code>绑定一个对象（解决隐藏参数this的问题）</li>
+</ul>
+</li>
+<li>将继承体系内的virtual函数替换为另一个继承体系内的virtual函数，这是<strong>Strategy</strong>设计模式的传统手法<ul>
+<li>好处是容易添加算法，只要进行派生即可</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>对两种设计模式的个人理解：</p>
+<p>Template Method设计模式：先定义框架，推迟定义具体实现</p>
+<p>Strategy设计模式：定义一系列的算法，把它们一个个封装起来，并且使他们可相互替换</p>
+</blockquote>
+<hr>
+<p><strong><em>virtual函数的替代方案包括 NVI手法以及 Strategy设计模式的多种形式；NVI手法自身是一个特殊形式的 Template Method设计模式</em></strong></p>
+<p><strong><em>将机能从成员函数移到 class外部函数，带来的一个缺点是，非成员函数无法访问 class的 non-public成员</em></strong></p>
+<p><strong><em><code>tr1::function</code>对象的行为就像一般函数指针；这样的对象可接纳 “与给定的签名式兼容 ”的所以可调用物</em></strong></p>
+<hr>
+<h5 id="条款36：绝不重新定义继承而来的non-virtual函数"><a href="#条款36：绝不重新定义继承而来的non-virtual函数" class="headerlink" title="条款36：绝不重新定义继承而来的non-virtual函数"></a>条款36：绝不重新定义继承而来的non-virtual函数</h5><ul>
+<li><p>non-virtual函数都是静态绑定的</p>
+</li>
+<li><p>virtual函数是动态绑定</p>
+<blockquote>
+<p>静态绑定指编译期就能将方法与所在的类关联起来，与之相对的，动态绑定指运行期才能确定</p>
+</blockquote>
+</li>
+<li><p>重新定义non-virtual函数造成的问题：</p>
+<ul>
+<li>使用基类指针的和派生类指针指向派生类对象，调用的方法不同</li>
+<li>违反了public继承的Liskov原则</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>绝对不要重新定义继承而来的的 non-virtual函数</em></strong></p>
+<hr>
+<h5 id="条款37：绝不重新定义继承而来的缺省参数值"><a href="#条款37：绝不重新定义继承而来的缺省参数值" class="headerlink" title="条款37：绝不重新定义继承而来的缺省参数值"></a>条款37：绝不重新定义继承而来的缺省参数值</h5><ul>
+<li>静态类型：变量被声明时所采用的类型</li>
+<li><p>动态类型：变量当前所指对象的类型</p>
+<blockquote>
+<p>例如，积累指针<code>Shape* p = new Circle();</code>，那么<code>p</code>的静态类型是<code>Shape*</code>，动态类型是0<code>Circle*</code></p>
+</blockquote>
+</li>
+<li><p>virtual函数是<strong>动态</strong>绑定，而缺省参数值是<strong>静态</strong>绑定，因此，有可能调用派生类方法，但是使用基类缺省值</p>
+</li>
+<li>可以使用NVI（见条款35）手法，在non-virtual函数中指定缺省值</li>
+</ul>
+<hr>
+<p><strong><em>绝对不要重新定义一个继承而来的缺省参数值，因为缺省参数值都是静态绑定，而 virtual函数——你唯一应该覆写的东西——却是动态绑定</em></strong></p>
+<hr>
+<h5 id="条款38：通过复合塑模出has-a或is-implemented-in-terms-of"><a href="#条款38：通过复合塑模出has-a或is-implemented-in-terms-of" class="headerlink" title="条款38：通过复合塑模出has-a或is-implemented-in-terms-of"></a>条款38：通过复合塑模出has-a或is-implemented-in-terms-of</h5><ul>
+<li><strong>应用域</strong>中的对象（比如人、汽车、一些图片等等），表现出<strong>has-a</strong>关系</li>
+<li><strong>实现域</strong>中的对象（比如互斥器，缓冲区，查找树等等），表现出<strong>is-implemented-in-terms-of</strong></li>
+<li>举例，希望用list来实现一个set，这时不应该用public继承，而是应该用复合，因为set并不应该支持list的所有操作<blockquote>
+<p>这和一般的教科书出入还挺大</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong><em>复合的意义和 public继承完全不同</em></strong></p>
+<p><strong><em>在应用域，复合意味着 has-a；在实现域，复合意味着 is-implemented-in-terms-of</em></strong></p>
+<hr>
+<h5 id="条款39：明智而审慎地使用private继承"><a href="#条款39：明智而审慎地使用private继承" class="headerlink" title="条款39：明智而审慎地使用private继承"></a>条款39：明智而审慎地使用private继承</h5><ul>
+<li><p>编译器可以将public继承的派生类隐式转换成基类，但不能对private继承的派生类这么做</p>
+</li>
+<li><p>private继承意味着implemented-in-terms-of，它纯粹只是一种实现技术，在设计层面上没有意义，其意义只在于软件实现层面（因此继承而来的东西全部都是private：它们都仅仅是实现枝节）</p>
+</li>
+<li><p>private继承可以用这样的技术替代：在类中内嵌一个类用来public继承原来要继承的类</p>
+<ul>
+<li>这种设计可以模拟Java的final和C#的sealed，即阻止派生类重新定义virtual函数</li>
+<li>如果把内嵌类移出去，并改为在原来的类里包含一个指针，就可以降低编译依存性</li>
+</ul>
+</li>
+<li><p>任何独立（非附属）对象一定有非零大小</p>
+<ul>
+<li>一种激进的情况：当类中没有任何数据时（包括非静态成员变量，virtual函数造成的vptr，以及虚基类），但是当在类中复合一个这样的对象，将造成类的大小变大（大多数编译器会填充一个char到空对象里，甚至还会引发对齐位的问题，具体见书P190）</li>
+<li>但是当继承这个空基类时，派生类的大小并不会如上增加，这是由于EBO（empty base optimization，空白基类最优化）<ul>
+<li>EBO一般只在单继承下可行，多继承不可行<blockquote>
+<p>这里还不清楚是为什么</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>private继承意味着 is-implemented-in-terms-of；它通常比复合的级别低；但是当 derived class需要访问 protected base class的成员，或需要重新定义继承而来的 virtual函数时，这么设计是合理的</em></strong></p>
+<p><strong><em>和复合不同，private继承可以造成 empty base最优化；这对致力于 “对象尺寸最小化 ”的程序库开发者而言，可能很重要</em></strong></p>
+<hr>
+<h5 id="条款40：明智而审慎地使用多重继承"><a href="#条款40：明智而审慎地使用多重继承" class="headerlink" title="条款40：明智而审慎地使用多重继承"></a>条款40：明智而审慎地使用多重继承</h5><ul>
+<li>使用virtual继承的类所产生的对象往往比non-virtual继承的体积更大，访问其成员变量时速度也更慢，且虚基类的初始化必须由最下层的派生类负责</li>
+<li>因此，有以下建议：<ul>
+<li>尽量不使用virtual继承</li>
+<li>如果必须使用，尽量避免在虚基类中放置数据</li>
+</ul>
+</li>
+<li>多重继承可以用于将“public继承某接口”和“private继承实现”结合起来</li>
+</ul>
+<hr>
+<p><strong><em>多重继承比单一继承复杂；它可能导致新的歧义性，以及对 virtual继承的需要</em></strong></p>
+<p><strong><em>virtual继承会增加大小、速度、初始化（及赋值）复杂度等成本；如果 virtual base class不带任何数据，将是最具实用价值的情况</em></strong></p>
+<p><strong><em>多重继承确有其正当用途；其中一个情节涉及“public继承某个Interface class”和“private继承某个协助实现的class”的两相结合</em></strong></p>
+<hr>
+<blockquote>
+<p>受笔者知识水平和表达能力所限，有些问题上难免出现疏漏，欢迎在评论区指正</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/b364aaa4.html" rel="prev" title="Pytorch简单笔记">
+      <i class="fa fa-chevron-left"></i> Pytorch简单笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/b0c96ca3.html" rel="next" title="Effective C++读书笔记（下）">
+      Effective C++读书笔记（下） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%A3%B0%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">4. 设计与声明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE18%EF%BC%9A%E8%AE%A9%E6%8E%A5%E5%8F%A3%E5%AE%B9%E6%98%93%E8%A2%AB%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%B8%8D%E6%98%93%E8%A2%AB%E8%AF%AF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">条款18：让接口容易被正确使用，不易被误用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE019%EF%BC%9A%E8%AE%BE%E8%AE%A1class%E7%8A%B9%E5%A6%82%E8%AE%BE%E8%AE%A1type"><span class="nav-number">1.2.</span> <span class="nav-text">条款019：设计class犹如设计type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE20%EF%BC%9A%E5%AE%81%E4%BB%A5pass-by-reference-to-const%E6%9B%BF%E6%8D%A2pass-by-value"><span class="nav-number">1.3.</span> <span class="nav-text">条款20：宁以pass-by-reference-to-const替换pass-by-value</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE21%EF%BC%9A%E5%BF%85%E9%A1%BB%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E6%97%B6%EF%BC%8C%E5%88%AB%E5%A6%84%E6%83%B3%E8%BF%94%E5%9B%9E%E5%85%B6reference"><span class="nav-number">1.4.</span> <span class="nav-text">条款21：必须返回对象时，别妄想返回其reference</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BAprivate"><span class="nav-number">1.5.</span> <span class="nav-text">条款22：将成员变量声明为private</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE23%EF%BC%9A%E5%AE%81%E4%BB%A5non-member%E3%80%81non-friend%E6%9B%BF%E6%8D%A2member%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">条款23：宁以non-member、non-friend替换member函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE24%EF%BC%9A%E8%8B%A5%E6%89%80%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%86%E9%9C%80%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%8C%E8%AF%B7%E4%B8%BA%E6%AD%A4%E9%87%87%E7%94%A8non-member%E5%87%BD%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">条款24：若所有参数皆需类型转换，请为此采用non-member函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE25%EF%BC%9A%E8%80%83%E8%99%91%E5%86%99%E5%87%BA%E4%B8%80%E4%B8%AA%E4%B8%8D%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8%E7%9A%84swap%E5%87%BD%E6%95%B0"><span class="nav-number">1.8.</span> <span class="nav-text">条款25：考虑写出一个不抛出异常的swap函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">5. 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE26%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%BB%B6%E5%90%8E%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E5%BC%8F%E7%9A%84%E5%87%BA%E7%8E%B0%E6%97%B6%E9%97%B4"><span class="nav-number">2.1.</span> <span class="nav-text">条款26：尽可能延后变量定义式的出现时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE27%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%B0%91%E5%81%9A%E8%BD%AC%E5%9E%8B%E5%8A%A8%E4%BD%9C"><span class="nav-number">2.2.</span> <span class="nav-text">条款27：尽量少做转型动作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE28%EF%BC%9A%E9%81%BF%E5%85%8D%E8%BF%94%E5%9B%9Ehandles%E6%8C%87%E5%90%91%E5%AF%B9%E8%B1%A1%E5%86%85%E9%83%A8%E6%88%90%E5%88%86"><span class="nav-number">2.3.</span> <span class="nav-text">条款28：避免返回handles指向对象内部成分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE29%EF%BC%9A%E4%B8%BA%E2%80%9C%E5%BC%82%E5%B8%B8%E5%AE%89%E5%85%A8%E2%80%9D%E8%80%8C%E5%8A%AA%E5%8A%9B%E6%98%AF%E5%80%BC%E5%BE%97%E7%9A%84"><span class="nav-number">2.4.</span> <span class="nav-text">条款29：为“异常安全”而努力是值得的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE30%EF%BC%9A%E9%80%8F%E5%BD%BB%E4%BA%86%E8%A7%A3inlining%E7%9A%84%E9%87%8C%E9%87%8C%E5%A4%96%E5%A4%96"><span class="nav-number">2.5.</span> <span class="nav-text">条款30：透彻了解inlining的里里外外</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE31%EF%BC%9A%E5%B0%86%E6%96%87%E4%BB%B6%E9%97%B4%E7%9A%84%E7%BC%96%E8%AF%91%E4%BE%9D%E5%AD%98%E5%85%B3%E7%B3%BB%E9%99%8D%E8%87%B3%E6%9C%80%E4%BD%8E"><span class="nav-number">2.6.</span> <span class="nav-text">条款31：将文件间的编译依存关系降至最低</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E7%BB%A7%E6%89%BF%E4%B8%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">6. 继承与面向对象设计</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE32%EF%BC%9A%E7%A1%AE%E5%AE%9A%E4%BD%A0%E7%9A%84public%E7%BB%A7%E6%89%BF%E5%A1%91%E8%86%9C%E5%87%BAis-a%E5%85%B3%E7%B3%BB"><span class="nav-number">3.1.</span> <span class="nav-text">条款32：确定你的public继承塑膜出is-a关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE33%EF%BC%9A%E9%81%BF%E5%85%8D%E9%81%AE%E6%8E%A9%E7%BB%A7%E6%89%BF%E8%80%8C%E6%9D%A5%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">3.2.</span> <span class="nav-text">条款33：避免遮掩继承而来的名称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE34%EF%BC%9A%E5%8C%BA%E5%88%86%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E5%92%8C%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF"><span class="nav-number">3.3.</span> <span class="nav-text">条款34：区分接口继承和实现继承</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE35%EF%BC%9A%E8%80%83%E8%99%91virtual%E5%87%BD%E6%95%B0%E4%BB%A5%E5%A4%96%E7%9A%84%E5%85%B6%E4%BB%96%E9%80%89%E6%8B%A9"><span class="nav-number">3.4.</span> <span class="nav-text">条款35：考虑virtual函数以外的其他选择</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE36%EF%BC%9A%E7%BB%9D%E4%B8%8D%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E7%BB%A7%E6%89%BF%E8%80%8C%E6%9D%A5%E7%9A%84non-virtual%E5%87%BD%E6%95%B0"><span class="nav-number">3.5.</span> <span class="nav-text">条款36：绝不重新定义继承而来的non-virtual函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE37%EF%BC%9A%E7%BB%9D%E4%B8%8D%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E7%BB%A7%E6%89%BF%E8%80%8C%E6%9D%A5%E7%9A%84%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0%E5%80%BC"><span class="nav-number">3.6.</span> <span class="nav-text">条款37：绝不重新定义继承而来的缺省参数值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE38%EF%BC%9A%E9%80%9A%E8%BF%87%E5%A4%8D%E5%90%88%E5%A1%91%E6%A8%A1%E5%87%BAhas-a%E6%88%96is-implemented-in-terms-of"><span class="nav-number">3.7.</span> <span class="nav-text">条款38：通过复合塑模出has-a或is-implemented-in-terms-of</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE39%EF%BC%9A%E6%98%8E%E6%99%BA%E8%80%8C%E5%AE%A1%E6%85%8E%E5%9C%B0%E4%BD%BF%E7%94%A8private%E7%BB%A7%E6%89%BF"><span class="nav-number">3.8.</span> <span class="nav-text">条款39：明智而审慎地使用private继承</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE40%EF%BC%9A%E6%98%8E%E6%99%BA%E8%80%8C%E5%AE%A1%E6%85%8E%E5%9C%B0%E4%BD%BF%E7%94%A8%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF"><span class="nav-number">3.9.</span> <span class="nav-text">条款40：明智而审慎地使用多重继承</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Stillwtm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stillwtm</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/gh/Stillwtm/Blog_cdn/js/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'jERTy9wlNPVGpmbUSmeXMDMu-gzGzoHsz',
+      appKey     : 'c2bh6kdRoUO5RjWNHGVj6EgX',
+      placeholder: "邮箱处填入qq邮箱可以自动显示qq头像和昵称哦! &#13;&#10; 也支持Gravater头像！&#13;&#10; 评论支持Markdown! &#13;&#10; 欢迎评论! \\^o^/",
+      avatar     : 'mp',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://jerty9wl.lc-cn-n1-shared.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
