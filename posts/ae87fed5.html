@@ -22,18 +22,25 @@
     var CONFIG = {"hostname":"www.stillwtm.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Stillwtm&#39;s Blog">
-<meta property="og:url" content="https://www.stillwtm.site/tags/C/index.html">
+  <meta name="description" content="ubuntu22.04下nvidia-smi报错：NVIDIA-SMI has failed because it couldn&#39;t communicate with the NVIDIA driver. 的一种解决方案">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nvidia-smi一种报错的解决方案">
+<meta property="og:url" content="https://www.stillwtm.site/posts/ae87fed5.html">
 <meta property="og:site_name" content="Stillwtm&#39;s Blog">
+<meta property="og:description" content="ubuntu22.04下nvidia-smi报错：NVIDIA-SMI has failed because it couldn&#39;t communicate with the NVIDIA driver. 的一种解决方案">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.stillwtm.site/home/snorlax/.config/Typora/typora-user-images/image-20221001162523904.png">
+<meta property="og:image" content="https://www.stillwtm.site/home/snorlax/.config/Typora/typora-user-images/image-20221001162628937.png">
+<meta property="og:image" content="https://www.stillwtm.site/home/snorlax/.config/Typora/typora-user-images/image-20221001163110718.png">
+<meta property="og:image" content="https://www.stillwtm.site/home/snorlax/.config/Typora/typora-user-images/image-20221001163637894.png">
+<meta property="article:published_time" content="2022-10-01T08:09:26.371Z">
+<meta property="article:modified_time" content="2022-10-30T15:02:55.568Z">
 <meta property="article:author" content="Stillwtm">
-<meta property="article:tag" content="程序员">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="上海交通大学">
+<meta property="article:tag" content="报错">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.stillwtm.site/home/snorlax/.config/Typora/typora-user-images/image-20221001162523904.png">
 
-<link rel="canonical" href="https://www.stillwtm.site/tags/C/">
+<link rel="canonical" href="https://www.stillwtm.site/posts/ae87fed5.html">
 
 
 <script id="page-configurations">
@@ -41,12 +48,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: C++ | Stillwtm's Blog</title>
+  <title>nvidia-smi一种报错的解决方案 | Stillwtm's Blog</title>
   
 
 
@@ -149,197 +156,140 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.stillwtm.site/posts/ae87fed5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Stillwtm">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stillwtm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nvidia-smi一种报错的解决方案
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-01 16:09:26" itemprop="dateCreated datePublished" datetime="2022-10-01T16:09:26+08:00">2022-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-30 23:02:55" itemprop="dateModified" datetime="2022-10-30T23:02:55+08:00">2022-10-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">错误记录</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/ae87fed5.html" class="post-meta-item leancloud_visitors" data-flag-title="nvidia-smi一种报错的解决方案" title="阅读数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">C++
-          <small>标签</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">评论数：</span>
+    
+    <a title="valine" href="/posts/ae87fed5.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/ae87fed5.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">ubuntu22.04下nvidia-smi报错：NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. 的一种解决方案</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-04T11:23:44+08:00"
-              content="2022-09-04">
-          09-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/b0c96ca3.html" itemprop="url">
-            <span itemprop="name">Effective C++读书笔记（下）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-04T11:23:11+08:00"
-              content="2022-09-04">
-          09-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/35909c41.html" itemprop="url">
-            <span itemprop="name">Effective C++读书笔记（中）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-18T21:08:35+08:00"
-              content="2022-04-18">
-          04-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/21b591a1.html" itemprop="url">
-            <span itemprop="name">Sakits的游戏（线段树）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-14T13:32:12+08:00"
-              content="2022-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/dd32a0e4.html" itemprop="url">
-            <span itemprop="name">浅谈二分|这个二分为什么又双叒叕死循环了</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-03-25T12:19:11+08:00"
-              content="2022-03-25">
-          03-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/bd5daa1e.html" itemprop="url">
-            <span itemprop="name">walotta的灾后重建规划（单调栈运用）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-03-23T17:33:08+08:00"
-              content="2022-03-23">
-          03-23
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/8750bc6.html" itemprop="url">
-            <span itemprop="name">Effective C++读书笔记（上）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-03-18T13:44:55+08:00"
-              content="2022-03-18">
-          03-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/bb4db3f1.html" itemprop="url">
-            <span itemprop="name">wennitao爱炒股（一道单调队列题）</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-03-07T19:16:56+08:00"
-              content="2022-03-07">
-          03-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/3b6d7b83.html" itemprop="url">
-            <span itemprop="name">约瑟夫问题及其一种变式</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>笔者使用的系统是ubuntu22.04，并且之前已经装好了nvidia驱动，不知怎么的突然今天就出现了连不上驱动的情况。在终端中输入<code>nvidia-smi</code>给出如下信息：</p>
+<p><img src="/home/snorlax/.config/Typora/typora-user-images/image-20221001162523904.png" alt="image-20221001162523904" style="zoom:100%;" /></p>
+<p>但是输入<code>nvcc -V</code>发现驱动还是在的：</p>
+<p><img src="/home/snorlax/.config/Typora/typora-user-images/image-20221001162628937.png" alt="image-20221001162628937"></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>查询到的解决方案如下（不用重装，甚至不用重启）：</p>
+<p><strong>第一步，安装<code>dkms</code>：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install dkms</span><br></pre></td></tr></table></figure>
+<p><strong>第二步，查看连接不上的驱动版本：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /usr/src | grep nvidia</span><br></pre></td></tr></table></figure>
+<p>笔者这里是<code>nvidia-515.76</code>：</p>
+<p><img src="/home/snorlax/.config/Typora/typora-user-images/image-20221001163110718.png" alt="image-20221001163110718"></p>
+<p>如果这里没有出现信息，说明没有安装驱动，请在网上搜索安装驱动教程。</p>
+<p><strong>第三步，使用<code>dkms</code>重新安装驱动：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dkms install -m nvidia -v xxx.xx</span><br></pre></td></tr></table></figure>
+<p>这里需要把<code>xxx.xx</code>换成刚才查询到的版本号，例如笔者就是<code>515.76</code>。</p>
+<p>至此，笔者的问题已经解决，再次输入<code>nvidia-smi</code>发现可以看到信息：</p>
+<p><img src="/home/snorlax/.config/Typora/typora-user-images/image-20221001163637894.png" alt="image-20221001163637894"></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%A5%E9%94%99/" rel="tag"># 报错</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/b0c96ca3.html" rel="prev" title="Effective C++读书笔记（下）">
+      <i class="fa fa-chevron-left"></i> Effective C++读书笔记（下）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -386,6 +336,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -536,6 +487,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
