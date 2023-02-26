@@ -22,25 +22,24 @@
     var CONFIG = {"hostname":"www.stillwtm.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="介绍凸包问题的Jarvis, Graham, Andrew三种算法">
-<meta property="og:type" content="website">
-<meta property="og:title" content="二维凸包问题的三种算法">
-<meta property="og:url" content="https://www.stillwtm.site/tmp/%E4%BA%8C%E7%BB%B4%E5%87%B8%E5%8C%85%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%89%E7%A7%8D%E7%AE%97%E6%B3%95.html">
+  <meta name="description" content="视频目标跟踪任务常见评价指标总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频目标跟踪任务常见评价指标">
+<meta property="og:url" content="https://www.stillwtm.site/posts/f2758661.html">
 <meta property="og:site_name" content="Stillwtm&#39;s Blog">
-<meta property="og:description" content="介绍凸包问题的Jarvis, Graham, Andrew三种算法">
+<meta property="og:description" content="视频目标跟踪任务常见评价指标总结">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/StillMe/AppData/Roaming/Typora/typora-user-images/image-20220424143103168.png">
-<meta property="og:image" content="c:/Users/StillMe/AppData/Roaming/Typora/typora-user-images/image-20220424151755276.png">
-<meta property="article:published_time" content="2022-04-24T05:00:39.000Z">
-<meta property="article:modified_time" content="2022-05-29T09:14:55.141Z">
+<meta property="og:image" content="https://s2.loli.net/2022/11/13/VLNl8uD6THc9Ytf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/13/SiYZvR9NymIOMKL.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/13/LSnQXJateB6vjix.png">
+<meta property="article:published_time" content="2022-11-13T12:33:33.872Z">
+<meta property="article:modified_time" content="2022-11-13T13:46:22.869Z">
 <meta property="article:author" content="Stillwtm">
-<meta property="article:tag" content="算法">
-<meta property="article:tag" content="计算几何">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="目标跟踪">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/StillMe/AppData/Roaming/Typora/typora-user-images/image-20220424143103168.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/11/13/VLNl8uD6THc9Ytf.png">
 
-<link rel="canonical" href="https://www.stillwtm.site/tmp/%E4%BA%8C%E7%BB%B4%E5%87%B8%E5%8C%85%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%89%E7%A7%8D%E7%AE%97%E6%B3%95.html">
+<link rel="canonical" href="https://www.stillwtm.site/posts/f2758661.html">
 
 
 <script id="page-configurations">
@@ -48,13 +47,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>二维凸包问题的三种算法 | Stillwtm's Blog
-</title>
+  <title>视频目标跟踪任务常见评价指标 | Stillwtm's Blog</title>
   
 
 
@@ -156,57 +154,164 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.stillwtm.site/posts/f2758661.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Stillwtm">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stillwtm's Blog">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          视频目标跟踪任务常见评价指标
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">二维凸包问题的三种算法
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
-    <div class="post-description">介绍凸包问题的Jarvis, Graham, Andrew三种算法</div>
+              <time title="创建时间：2022-11-13 20:33:33 / 修改时间：21:46:22" itemprop="dateCreated datePublished" datetime="2022-11-13T20:33:33+08:00">2022-11-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/f2758661.html" class="post-meta-item leancloud_visitors" data-flag-title="视频目标跟踪任务常见评价指标" title="阅读数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">评论数：</span>
+    
+    <a title="valine" href="/posts/f2758661.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/f2758661.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">视频目标跟踪任务常见评价指标总结</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在目标跟踪中，不同数据集可能都有不同的评价指标，单目标跟踪（SOT）和多目标跟踪（MOT）的评价方式也有不同，这里主要介绍一下单目标跟踪的一些常见指标和概念。</p>
+<blockquote>
+<p>也许以后会更新</p>
+</blockquote>
+<h3 id="Overlap-Rate"><a href="#Overlap-Rate" class="headerlink" title="Overlap Rate"></a>Overlap Rate</h3><ul>
+<li>定义：两个矩形框所包围面积的交集和并集的比值（即交并比）</li>
+<li>范围：$[0, 1]$</li>
+<li>实际上和目标检测里时常出现的IoU的定义是相同的，不过似乎在跟踪里更惯常叫这个名字</li>
+</ul>
+<h4 id="AOR（Average-Overlap-Rate）"><a href="#AOR（Average-Overlap-Rate）" class="headerlink" title="AOR（Average Overlap Rate）"></a>AOR（Average Overlap Rate）</h4><ul>
+<li>定义：即Overlap Rate取帧平均</li>
+<li>范围：$[0, 1]$</li>
+</ul>
+<h3 id="Precision"><a href="#Precision" class="headerlink" title="Precision"></a>Precision</h3><blockquote>
+<p>来自OTB2013</p>
+</blockquote>
+<ul>
+<li>定义：预测框中心点和Ground Truth框中心点的欧氏距离，以像素为单位</li>
+<li><strong>缺点</strong>是没有考虑到目标的大小，小目标即使预测偏差较大，绝对的像素距离偏差也可能较小</li>
+</ul>
+<h3 id="Norm-Precision"><a href="#Norm-Precision" class="headerlink" title="Norm Precision"></a>Norm Precision</h3><blockquote>
+<p>来自<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1803.10794.pdf">TrackingNet</a></p>
+</blockquote>
+<ul>
+<li><p>定义：预测框中心点到Ground Truth框中心点的欧氏距离，与Ground Truth框斜边的比值</p>
+<p><img src="https://s2.loli.net/2022/11/13/VLNl8uD6THc9Ytf.png" alt="image-20221113213100345"></p>
+</li>
+<li><p>范围：$[0, 0.5]$</p>
+</li>
+<li><p>相较于Precision，<strong>好处</strong>是综合考虑了框的大小</p>
+</li>
+</ul>
+<h3 id="Overlap-Rate-threshold"><a href="#Overlap-Rate-threshold" class="headerlink" title="Overlap Rate threshold"></a>Overlap Rate threshold</h3><ul>
+<li>定义：人为设定的Overlap Rate的阈值，重叠率高于该阈值认为则是命中目标（Success）</li>
+<li>范围：$[0, 1]$</li>
+</ul>
+<h3 id="Pixel-Error-threshold"><a href="#Pixel-Error-threshold" class="headerlink" title="Pixel Error threshold"></a>Pixel Error threshold</h3><ul>
+<li>定义：人为设定的Precision的阈值，像素误差小于该阈值则认为是命中目标（Success）</li>
+</ul>
+<h3 id="Success-plot"><a href="#Success-plot" class="headerlink" title="Success plot"></a>Success plot</h3><ul>
+<li><p>定义：Success的帧数占总帧数的比例为成功率，成功率和Overlap Rate threshold / Pixel Error Threhold之间的关系曲线即为Success plot</p>
+</li>
+<li><p>例如：<img src="https://s2.loli.net/2022/11/13/SiYZvR9NymIOMKL.png" alt="image-20221113211521001"></p>
+<p><img src="https://s2.loli.net/2022/11/13/LSnQXJateB6vjix.png" alt="image-20221113214430497"></p>
+</li>
+</ul>
+<h3 id="AUC（Area-Under-Curve）"><a href="#AUC（Area-Under-Curve）" class="headerlink" title="AUC（Area Under Curve）"></a>AUC（Area Under Curve）</h3><ul>
+<li>定义：成功率图与坐标轴所包围的面积</li>
+<li>范围：$[0, 1]$</li>
+<li>一般用来衡量跟踪精度，好处在于相当于综合考虑了不同阈值下的情况</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/" rel="tag"># 目标跟踪</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/a63bf863.html" rel="prev" title="安卓设备控制windows远程桌面（内网穿透）">
+      <i class="fa fa-chevron-left"></i> 安卓设备控制windows远程桌面（内网穿透）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <h3 id="二维凸包问题"><a href="#二维凸包问题" class="headerlink" title="二维凸包问题"></a>二维凸包问题</h3><p>对于一个集合D，所有包含D的凸集之交称为D的凸包。</p>
-<p>简化地理解，就是给定一组平面上的点，求包含所有点的最小凸多边形。</p>
-<p>例如对于下图的点集$\{A,B,\cdots,L\}$，外面的五边形就是一个凸包。</p>
-<p><img src="C:\Users\StillMe\AppData\Roaming\Typora\typora-user-images\image-20220424143103168.png" alt="image-20220424143103168" style="zoom:80%;" /></p>
-<p>那么给定二维平面上的一个点集，要怎么求出凸包呢？我们下面将介绍三种算法。</p>
-<h3 id="Jarvis算法"><a href="#Jarvis算法" class="headerlink" title="Jarvis算法"></a>Jarvis算法</h3><p>Javis算法的思想十分简单，它希望找到一系列向量，使得所有的点都在找到的向量的同一侧，这些向量的首尾相接就是凸包。</p>
-<p>首先，在点集中取$x$坐标最小的点$A_1$（$x$最小一定在凸包上），然后在其余点中找到$A_2$，使所有点都在向量$\vec{A_1A_2}$的左侧，然后以$A_2$为起点，找到$A_3$，使得所有点都在$\vec{A_2A_3}$左侧，再以$A_3$为起点，如此重复……直到最后找到的那个点与最开始的起点，也就是$A_1$重合。这样我们就得到了一个首尾相接的向量闭环，也就是所要求的凸包。</p>
-<p>具体找点的过程非常暴力，比如以点$P$为起点，要找点$Q$，使所有点在$\vec{PQ}$左侧。我们遍历所有的点并不断比较，对于当前遍历到的点$R$，如果$\vec{PR}$在$\vec{PQ}$的右侧，则把$Q$更新为$R$。至于具体的判断方式，只要$\vec{PQ}\times\vec{PR} &lt; 0$（叉乘），那就说明$\vec{PR}$在$\vec{PQ}$的右侧。</p>
-<p>叙述的方便，笔者先做一些定义（仅仅为笔者自己使用的称呼）：</p>
-<p>为了下面叙述的方便，笔者先做一些定义（仅仅为笔者自己使用的称呼）：</p>
-<p><strong>左拐/右拐：</strong>对于首尾相接的两个向量$\vec{\alpha},\vec{\beta}$，若$\vec{\alpha}\times\vec{\beta} &gt; 0$，称为左拐；若$\vec{\alpha}\times\vec{\beta} &lt; 0$，称为右拐（这里$\times$是叉乘）。</p>
-<p>从图形上说就是$\vec{\beta}$在$\vec{\alpha}$延长线的左侧就叫左拐，在右侧就叫右拐。可以通过下图形象化地进行认识：</p>
-<p><img src="C:\Users\StillMe\AppData\Roaming\Typora\typora-user-images\image-20220424151755276.png" alt="image-20220424151755276" style="zoom:80%;" /></p>
-
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
@@ -258,7 +363,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%87%B8%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">二维凸包问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jarvis%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Jarvis算法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overlap-Rate"><span class="nav-number">1.</span> <span class="nav-text">Overlap Rate</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AOR%EF%BC%88Average-Overlap-Rate%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">AOR（Average Overlap Rate）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Precision"><span class="nav-number">2.</span> <span class="nav-text">Precision</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Norm-Precision"><span class="nav-number">3.</span> <span class="nav-text">Norm Precision</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overlap-Rate-threshold"><span class="nav-number">4.</span> <span class="nav-text">Overlap Rate threshold</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pixel-Error-threshold"><span class="nav-number">5.</span> <span class="nav-text">Pixel Error threshold</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Success-plot"><span class="nav-number">6.</span> <span class="nav-text">Success plot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUC%EF%BC%88Area-Under-Curve%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">AUC（Area Under Curve）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
