@@ -285,14 +285,22 @@
     font-size: 20px;
   }
 }
+.cart-page-bottom p span.from {
+  display: block;
+  width: 100%;
+  text-align: right;
+  font-size: 24px;
+}
 .cart-page-bottom .img-wrapper {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  height: 25%;
+  height: 30%;
 }
 
 .cart-page-bottom .img-wrapper img {
+  height: 120%;
+  width: auto;
   -webkit-transform: rotate(-10deg) translate(0, 0);
   transform: rotate(-10deg) translate(0, 0);
 }
