@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="LdMdbT7dnIAKjfdC2IFvOgW8Kd1tIwuuHHLT2RqQg4k">
+  <meta name="baidu-site-verification" content="<meta name="baidu-site-verification" content="code-aZzP8ZWOEt" />">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.stillwtm.site","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用marp-vscode插件，可以直接使用markdown来制作ppt，并且可以实时预览。本文在原生marp基础上，通过css和html支持了ppt左右分栏。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用marp制作左右分栏的ppt">
+<meta property="og:url" content="https://www.stillwtm.site/posts/8fcc758c.html">
+<meta property="og:site_name" content="Stillwtm&#39;s Blog">
+<meta property="og:description" content="使用marp-vscode插件，可以直接使用markdown来制作ppt，并且可以实时预览。本文在原生marp基础上，通过css和html支持了ppt左右分栏。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/05/21/M8BiafHuSQEc1K2.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/21/sXzA5SqbOvxeQGZ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/21/bym35zocFRn7gX9.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/21/QHMf6cezw1tLVr2.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/05/21/pSeUY4tLHQrnjEK.png">
+<meta property="og:image" content="c:/Users/StillMe/AppData/Roaming/Typora/typora-user-images/image-20230521214658542.png">
+<meta property="article:published_time" content="2023-05-20T08:59:41.000Z">
+<meta property="article:modified_time" content="2023-05-21T14:04:34.657Z">
+<meta property="article:author" content="Stillwtm">
+<meta property="article:tag" content="瞎捣鼓">
+<meta property="article:tag" content="markdown">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/05/21/M8BiafHuSQEc1K2.png">
+
+<link rel="canonical" href="https://www.stillwtm.site/posts/8fcc758c.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用marp制作左右分栏的ppt | Stillwtm's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Stillwtm's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-项目">
+
+    <a href="/projects/" rel="section"><i class="fa fa-bars fa-fw"></i>项目</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.stillwtm.site/posts/8fcc758c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Stillwtm">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stillwtm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用marp制作左右分栏的ppt
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-20 16:59:41" itemprop="dateCreated datePublished" datetime="2023-05-20T16:59:41+08:00">2023-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-21 22:04:34" itemprop="dateModified" datetime="2023-05-21T22:04:34+08:00">2023-05-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9E%8E%E6%8D%A3%E9%BC%93/" itemprop="url" rel="index"><span itemprop="name">瞎捣鼓</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/8fcc758c.html" class="post-meta-item leancloud_visitors" data-flag-title="使用marp制作左右分栏的ppt" title="阅读数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">评论数：</span>
+    
+    <a title="valine" href="/posts/8fcc758c.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/8fcc758c.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">使用marp-vscode插件，可以直接使用markdown来制作ppt，并且可以实时预览。本文在原生marp基础上，通过css和html支持了ppt左右分栏。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Marp介绍"><a href="#Marp介绍" class="headerlink" title="Marp介绍"></a>Marp介绍</h2><p><a target="_blank" rel="noopener" href="https://marp.app/">Marp: Markdown Presentation Ecosystem</a>是一个很好用的使用markdown创建ppt的工具。</p>
+<p><strong>为什么选择Marp</strong></p>
+<p>如果对于日常的简单汇报，不需要华丽的动效和模板，也不想在排版上花费心思，只需要简单且清楚地展示需要汇报的内容；如果需要在ppt中粘贴大量代码块或者数学公式；如果已经有了比较完整的markdown笔记需要将内容转换成ppt；那么使用Marp来制作ppt应该会是一个不错的选择。</p>
+<p>事实上，笔者也调研过一些其他markdown转ppt的工具，例如<a href="(https://cn.sli.dev/">Slidev</a>)，功能确实很强大，但是很多功能超出了我的需求（比如笔者也不会vue），略有一些复杂；<a target="_blank" rel="noopener" href="https://www.deckset.com/">Deckset</a>似乎只支持Mac；而Marp是真正的开箱即用，几乎没有入门成本。</p>
+<blockquote>
+<p>Marp功能当然没有Slidev那么完善和强大，如果需要定制动画效果之类，请移步Slidev</p>
+</blockquote>
+<p><strong>Marp生态</strong></p>
+<p>在官网中已经讲得比较明白，对于用户来说，一般直接使用的是Marp-vscode插件，或者Marp-CLI命令行接口。前者的好处是可以在vscode原生的markdown预览侧边栏中实时预览你制作的ppt；后者的好处是自定义功能比较方便，例如通过js编写或添加一些插件。</p>
+<p>Marp入门很简单，网上也有很多资料，本文不涉及。本文仅针对使用Marp-vscode插件，并进行主题等定制分享一些经验。</p>
+<h2 id="Marp-vscode定制"><a href="#Marp-vscode定制" class="headerlink" title="Marp-vscode定制"></a>Marp-vscode定制</h2><p>首先需要明确，如果使用Marp-vscode（而非CLI）的话，那么是没有办法定制或者添加现成的插件的，据<a href="[&quot;Local&quot; plugin for marp-team.marp-vscode? · marp-team · Discussion #432 (github.com">作者说</a>](<a target="_blank" rel="noopener" href="https://github.com/orgs/marp-team/discussions/432))是因为安全问题。也就是说没有办法添加新的markdown语法和directive。">https://github.com/orgs/marp-team/discussions/432))是因为安全问题。也就是说没有办法添加新的markdown语法和directive。</a></p>
+<blockquote>
+<p>如果非要定制Marp-vscode，那么可能需要把原插件的仓库clone一份，修改源码后再做成一个新插件，参见<a target="_blank" rel="noopener" href="https://github.com/orgs/marp-team/discussions/431">这个讨论</a></p>
+</blockquote>
+<p>所以下面我们仅介绍主题定制，并介绍如何使用html给marp带来一些灵活性。</p>
+<h3 id="主题定制"><a href="#主题定制" class="headerlink" title="主题定制"></a>主题定制</h3><p>如果会一点CSS，那么你就可以定制自己的Marp主题，但是要注意一些要点：</p>
+<ul>
+<li><p>一个Marp主题就是一个CSS文件。</p>
+</li>
+<li><p>注意开头需要以下注释：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* @theme beam-my */</span></span><br></pre></td></tr></table></figure>
+<p>来定义你这个主题的名字，也就是ppt的开头<code>theme: beam-my</code>中使用的名字。</p>
+</li>
+<li><p>一般来说，比较推荐使用base64或者图床在marp中嵌入图片，本地图片Marp是不支持的（可能是vscode工作区的安全问题）。</p>
+</li>
+<li>如果需要导出ppt时要应用某主题，那么该主题文件必须在vscode当前打开的工作区下（例如markdown和CSS在同一个文件夹下，然后用vscode打开该文件夹），否则即使可以预览，也未必能够导出。</li>
+</ul>
+<p>具体的例子可以参考<a target="_blank" rel="noopener" href="https://github.com/rnd195/my-marp-themes">这个repo</a>，笔者也在这个基础上修改了一版。</p>
+<p>写完你的CSS文件之后，可以在vscode的设置中搜索关键词<code>marp theme</code>，然后可以通过“添加项”来添加你的主题文件的路径，如下图所示：</p>
+<p><img src="https://s2.loli.net/2023/05/21/M8BiafHuSQEc1K2.png" alt="image-20230521205223857"></p>
+<p>当然，也可以在<code>settings.json</code>中直接修改：</p>
+<p><img src="https://s2.loli.net/2023/05/21/sXzA5SqbOvxeQGZ.png" alt="image-20230521210209796"></p>
+<p>注意，主题文件支持两种方式，一是直接使用网址，二是使用本地路径。但需要注意，本地路径<strong>必须是相对路径</strong>，否则不能生效。如果你直接采用像我这种方式操作，没有创建一个<code>.vscode</code>文件夹的话，那么相对路径的根就是你的markdown文件。</p>
+<p>考虑到导出时本来也就需要主题文件和markdown文件在相同工作区下，不妨直接将他们放在相同目录下。</p>
+<h3 id="使用html添加个性化需求"><a href="#使用html添加个性化需求" class="headerlink" title="使用html添加个性化需求"></a>使用html添加个性化需求</h3><p>vscode插件虽然方便，但由于不能定制markdown语法，自由度没那么大。据作者在github的讨论中说，Marp的设计哲学是尽量减少各种新增markdown语法，通过转向html来完成各种复杂设计，所以我们可以尝试通过使用html+CSS完成一些需求。我们将在下面讨论一套完整的<strong>方便地</strong>使用html自定义Marp布局的流程。</p>
+<p>注意，如果要使用Marp时书写html，需要先在设置中打开<code>Enable HTML</code>：</p>
+<p><img src="https://s2.loli.net/2023/05/21/bym35zocFRn7gX9.png" alt="image-20230521210637824"></p>
+<h4 id="多列布局实现"><a href="#多列布局实现" class="headerlink" title="多列布局实现"></a>多列布局实现</h4><p>我们通过一个样例来说明如何在Marp中使用html。</p>
+<p>一个很常见的需求是在ppt中实现多列布局，但是原生Marp没有提供相应的扩展markdown语法，所以我们通过html来实现。</p>
+<p>我们可以通过以下代码简单实现一个两列布局：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">marp: true</span><br><span class="line">style: |</span><br><span class="line">  .columns &#123;</span><br><span class="line"><span class="code">    display: grid;</span></span><br><span class="line"><span class="code">    grid-template-columns: repeat(2, minmax(0, 1fr));</span></span><br><span class="line"><span class="code">    gap: 1rem;</span></span><br><span class="line"><span class="code">  &#125;</span></span><br><span class="line"><span class="code">---</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="section"># Multi columns in Marp slide</span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;columns&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">## Column 1</span></span><br><span class="line"></span><br><span class="line">Content 1</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">## Column 2</span></span><br><span class="line"></span><br><span class="line">Content2</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2023/05/21/QHMf6cezw1tLVr2.jpg" alt="untitled"></p>
+<p>其中，定义<code>style</code>的部分：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">style: |</span><br><span class="line">  .columns &#123;</span><br><span class="line">    <span class="attribute">display</span>: grid;</span><br><span class="line">    <span class="attribute">grid-template-columns</span>: <span class="built_in">repeat</span>(<span class="number">2</span>, <span class="built_in">minmax</span>(<span class="number">0</span>, <span class="number">1</span>fr));</span><br><span class="line">    <span class="attribute">gap</span>: <span class="number">1rem</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>也可以通过<code>&lt;style&gt;&lt;/style&gt;</code>写在每一页里，也可以直接写在你自定义的主题文件里。</p>
+<p>如果要实现多列布局，例如3列布局，只需要将<code>grid-template-columns</code>的重复次数改成<code>3</code>即可：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">grid-template-columns</span>: <span class="built_in">repeat</span>(<span class="number">3</span>, <span class="built_in">minmax</span>(<span class="number">0</span>, <span class="number">1</span>fr));</span><br></pre></td></tr></table></figure>
+<p>这些属于html和CSS的细节问题，我们今天只是要展示，可以通过一些简单的前端技术实现Marp中ppt布局的定制。</p>
+<h4 id="其他细节"><a href="#其他细节" class="headerlink" title="其他细节"></a>其他细节</h4><p>Marp提供了一个很有用的directive：<code>&lt;!-- _class: className --&gt;</code>。它可以给这一页的<code>&lt;section&gt;</code>元素全部加上类名<code>className</code>。这可以很方便地定义一些东西，例如我们需要将这一页的字全部缩小，我们可以在主题CSS文件中新增如下代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">section</span><span class="selector-class">.tinytext</span> &gt; <span class="selector-tag">p</span>,</span><br><span class="line"><span class="selector-tag">section</span><span class="selector-class">.tinytext</span> &gt; <span class="selector-tag">ul</span>,</span><br><span class="line"><span class="selector-tag">section</span><span class="selector-class">.tinytext</span> &gt; <span class="selector-tag">blockquote</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">0.65em</span>;  // as you please</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，只要在某一页中添加<code>&lt;!-- _class: tinytext --&gt;</code>，就可以把这一页的段落、无序列表、引用块中的文字全部变小。</p>
+<h4 id="结合vscode-snippets"><a href="#结合vscode-snippets" class="headerlink" title="结合vscode snippets"></a>结合vscode snippets</h4><p>虽然我们可以定制布局，但是每次都敲html还是太麻烦了。比如我们需要经常使用两列布局，我们可以通过vscode snippets来节省大量输入。</p>
+<p>在vscode中按下<code>Ctrl + P</code>，输入<code>&gt;</code>后搜索snippet，可以打开配置代码片段：</p>
+<p><img src="https://s2.loli.net/2023/05/21/pSeUY4tLHQrnjEK.png" alt="image-20230521214305055"></p>
+<p>我们可以创建仅对markdown生效的snippet（当然也可以全局，随你喜好）：</p>
+<p><img src="C:/Users/StillMe/AppData/Roaming/Typora/typora-user-images/image-20230521214658542.png" alt="image-20230521214658542"></p>
+<p>你可以按照文件中给出的样例自行定义你的snippet，笔者对于上面双列布局定义的snippet如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;marp two columns layout&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;prefix&quot;</span><span class="punctuation">:</span> <span class="string">&quot;col2&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">			<span class="string">&quot;&lt;!-- _class: col-2 --&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&lt;div&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&lt;div&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;$1&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&lt;/div&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&lt;div&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;$2&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&lt;/div&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="string">&quot;&lt;/div&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;marp two columns layout&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>其中<code>&lt;!-- _class: col-2 --&gt;</code>是我将之前介绍的多列布局样式写入了主题文件，并按照上面一节中的技巧进行了应用。</p>
+<p>这样，当我敲出<code>col2</code>时，vscode就可以帮我补全这一大段文字了，就效率而言，并没有比拓展markdown语法来得慢多少。</p>
+<blockquote>
+<p>以后看看会不会用Marp-CLI，再补个教程</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%9E%8E%E6%8D%A3%E9%BC%93/" rel="tag"># 瞎捣鼓</a>
+              <a href="/tags/markdown/" rel="tag"># markdown</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/f2758661.html" rel="prev" title="视频目标跟踪任务常见评价指标">
+      <i class="fa fa-chevron-left"></i> 视频目标跟踪任务常见评价指标
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Marp%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">Marp介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Marp-vscode%E5%AE%9A%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">Marp-vscode定制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98%E5%AE%9A%E5%88%B6"><span class="nav-number">2.1.</span> <span class="nav-text">主题定制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8html%E6%B7%BB%E5%8A%A0%E4%B8%AA%E6%80%A7%E5%8C%96%E9%9C%80%E6%B1%82"><span class="nav-number">2.2.</span> <span class="nav-text">使用html添加个性化需求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">多列布局实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%BB%86%E8%8A%82"><span class="nav-number">2.2.2.</span> <span class="nav-text">其他细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E5%90%88vscode-snippets"><span class="nav-number">2.2.3.</span> <span class="nav-text">结合vscode snippets</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Stillwtm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stillwtm</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/gh/Stillwtm/Blog_cdn/js/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'jERTy9wlNPVGpmbUSmeXMDMu-gzGzoHsz',
+      appKey     : 'c2bh6kdRoUO5RjWNHGVj6EgX',
+      placeholder: "邮箱处填入qq邮箱可以自动显示qq头像和昵称哦! &#13;&#10; 也支持Gravater头像！&#13;&#10; 评论支持Markdown! &#13;&#10; 欢迎评论! \\^o^/",
+      avatar     : 'mp',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://jerty9wl.lc-cn-n1-shared.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
